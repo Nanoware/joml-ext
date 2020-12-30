@@ -21,7 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Options;
+import org.joml.Vector3fc;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -29,10 +32,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector3fc;
 
 /**
  * Represents a ray with a given origin and direction using single-precision floating-point numbers.
@@ -74,7 +73,7 @@ public class Rayf implements Externalizable {
 
     /**
      * Create a new {@link Rayf} as a copy of the given <code>source</code>.
-     * 
+     *
      * @param source
      *          the {@link Rayf} to copy from
      */
@@ -89,7 +88,7 @@ public class Rayf implements Externalizable {
 
     /**
      * Create a new {@link Rayf} with the given <code>origin</code> and <code>direction</code>.
-     * 
+     *
      * @param origin
      *          the origin of the ray
      * @param direction
@@ -106,7 +105,7 @@ public class Rayf implements Externalizable {
 
     /**
      * Create a new {@link Rayf} with the given origin and direction.
-     * 
+     *
      * @param oX
      *          the x coordinate of the ray's origin
      * @param oY
@@ -168,23 +167,23 @@ public class Rayf implements Externalizable {
      * Return a string representation of this ray.
      * <p>
      * This method creates a new {@link DecimalFormat} on every invocation with the format string "<code>0.000E0;-</code>".
-     * 
+     *
      * @return the string representation
      */
     public String toString() {
-        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
 
     /**
      * Return a string representation of this ray by formatting the vector components with the given {@link NumberFormat}.
-     * 
+     *
      * @param formatter
      *          the {@link NumberFormat} used to format the vector components with
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
-        return "(" + Runtime.format(oX, formatter) + " " + Runtime.format(oY, formatter) + " " + Runtime.format(oZ, formatter) + ") -> "
-             + "(" + Runtime.format(dX, formatter) + " " + Runtime.format(dY, formatter) + " " + Runtime.format(dZ, formatter) + ")";
+        return "(" + org.joml.Runtime.format(oX, formatter) + " " + org.joml.Runtime.format(oY, formatter) + " " + org.joml.Runtime.format(oZ, formatter) + ") -> "
+             + "(" + org.joml.Runtime.format(dX, formatter) + " " + org.joml.Runtime.format(dY, formatter) + " " + org.joml.Runtime.format(dZ, formatter) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {

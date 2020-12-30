@@ -21,7 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Math;
+import org.joml.Matrix4fc;
+import org.joml.Options;
+import org.joml.Vector2d;
+import org.joml.Vector2f;
+import org.joml.Vector3d;
+import org.joml.Vector3dc;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -29,17 +39,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import org.joml.Math;
-import org.joml.Matrix4fc;
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector2d;
-import org.joml.Vector2f;
-import org.joml.Vector3d;
-import org.joml.Vector3dc;
-import org.joml.Vector3f;
-import org.joml.Vector3fc;
 
 /**
  * Represents an axis-aligned box defined via the minimum and maximum corner coordinates as single-precision floats.
@@ -704,12 +703,12 @@ public class AABBf implements Externalizable, AABBfc {
      * @return the string representation
      */
     public String toString() {
-        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
 
     public String toString(NumberFormat formatter) {
-        return "(" + Runtime.format(minX, formatter) + " " + Runtime.format(minY, formatter) + " " + Runtime.format(minZ, formatter) + ") < "
-             + "(" + Runtime.format(maxX, formatter) + " " + Runtime.format(maxY, formatter) + " " + Runtime.format(maxZ, formatter) + ")";
+        return "(" + org.joml.Runtime.format(minX, formatter) + " " + org.joml.Runtime.format(minY, formatter) + " " + org.joml.Runtime.format(minZ, formatter) + ") < "
+             + "(" + org.joml.Runtime.format(maxX, formatter) + " " + org.joml.Runtime.format(maxY, formatter) + " " + org.joml.Runtime.format(maxZ, formatter) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {

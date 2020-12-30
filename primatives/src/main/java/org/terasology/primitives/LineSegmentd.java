@@ -21,7 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Options;
+import org.joml.Vector3dc;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -30,13 +33,9 @@ import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector3dc;
-
 /**
  * Represents an undirected line segment between two points.
- * 
+ *
  * @author Kai Burjack
  */
 public class LineSegmentd implements Externalizable {
@@ -74,7 +73,7 @@ public class LineSegmentd implements Externalizable {
 
     /**
      * Create a new {@link LineSegmentd} as a copy of the given <code>source</code>.
-     * 
+     *
      * @param source
      *          the {@link LineSegmentd} to copy from
      */
@@ -89,7 +88,7 @@ public class LineSegmentd implements Externalizable {
 
     /**
      * Create a new {@link LineSegmentd} between the given two points.
-     * 
+     *
      * @param a
      *          the first point
      * @param b
@@ -106,7 +105,7 @@ public class LineSegmentd implements Externalizable {
 
     /**
      * Create a new {@link LineSegmentd} between the two points.
-     * 
+     *
      * @param aX
      *          the x coordinate of the first point
      * @param aY
@@ -176,23 +175,23 @@ public class LineSegmentd implements Externalizable {
      * Return a string representation of this line segment.
      * <p>
      * This method creates a new {@link DecimalFormat} on every invocation with the format string "<code>0.000E0;-</code>".
-     * 
+     *
      * @return the string representation
      */
     public String toString() {
-        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
 
     /**
      * Return a string representation of this line segment by formatting the vector components with the given {@link NumberFormat}.
-     * 
+     *
      * @param formatter
      *          the {@link NumberFormat} used to format the vector components with
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
-        return "(" + Runtime.format(aX, formatter) + " " + Runtime.format(aY, formatter) + " " + Runtime.format(aZ, formatter) + ") - "
-             + "(" + Runtime.format(bX, formatter) + " " + Runtime.format(bY, formatter) + " " + Runtime.format(bZ, formatter) + ")";
+        return "(" + org.joml.Runtime.format(aX, formatter) + " " + org.joml.Runtime.format(aY, formatter) + " " + org.joml.Runtime.format(aZ, formatter) + ") - "
+             + "(" + org.joml.Runtime.format(bX, formatter) + " " + org.joml.Runtime.format(bY, formatter) + " " + org.joml.Runtime.format(bZ, formatter) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {

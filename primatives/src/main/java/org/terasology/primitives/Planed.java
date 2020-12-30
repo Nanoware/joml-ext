@@ -42,7 +42,7 @@ import java.text.NumberFormat;
  *
  * @author Kai Burjack
  */
-public class Planed implements Externalizable, org.joml.primitives.Planedc {
+public class Planed implements Externalizable, Planedc {
 
     /**
      * The factor <code>a</code> in the plane equation <code>a*x + b*y + c*z + d = 0</code>.
@@ -115,7 +115,7 @@ public class Planed implements Externalizable, org.joml.primitives.Planedc {
     }
 
     /**
-     * Create a new {@link org.joml.primitives.Planef} from the given three points lying on the plane.
+     * Create a new {@link Planef} from the given three points lying on the plane.
      * <p>
      * The resulting plane is not necessarily {@link #normalize() normalized}.
      *
@@ -136,7 +136,7 @@ public class Planed implements Externalizable, org.joml.primitives.Planedc {
     }
 
     /**
-     * Create a new {@link org.joml.primitives.Planef} from the given three points lying on the plane.
+     * Create a new {@link Planef} from the given three points lying on the plane.
      * <p>
      * The resulting plane is not necessarily {@link #normalize() normalized}.
      *
@@ -214,7 +214,7 @@ public class Planed implements Externalizable, org.joml.primitives.Planedc {
      * @return the signed distance between this plane and the point
      */
     public double distance(double x, double y, double z) {
-        return org.joml.primitives.Intersectiond.distancePointPlane(x, y, z, a, b, c, d);
+        return Intersectiond.distancePointPlane(x, y, z, a, b, c, d);
     }
 
     /**

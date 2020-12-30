@@ -21,12 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
-
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+package org.terasology.primitives;
 
 import org.joml.Math;
 import org.joml.Matrix4fc;
@@ -39,6 +34,11 @@ import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector3i;
 import org.joml.Vector3ic;
+
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 /**
  * Represents an axis-aligned box defined via the minimum and maximum corner coordinates as ints.
@@ -546,7 +546,6 @@ public class AABBi implements Externalizable, AABBic {
         return x > minX && y > minY && z > minZ && x < maxX && y < maxY && z < maxZ;
     }
 
-    @Override
     public boolean containsPoint(Vector3dc point) {
         return false;
     }
@@ -559,7 +558,6 @@ public class AABBi implements Externalizable, AABBic {
         return containsPoint(point.x(), point.y(), point.z());
     }
 
-    @Override
     public boolean intersectsPlane(double a, double b, double c, double d) {
         return false;
     }
@@ -572,14 +570,13 @@ public class AABBi implements Externalizable, AABBic {
         return Intersectionf.testAabPlane(this, plane);
     }
 
-    @Override
     public boolean intersectsPlane(Planed plane) {
-        return false;
+        return Intersectiond.testAabPlane(minX, minY, minZ, maxX, maxY, maxZ, plane.a, plane.b, plane.c, plane.d);
     }
 
-    @Override
     public boolean intersectsAABB(AABBdc other) {
-        return false;
+        return this.maxX >= other.minX() && this.maxY >= other.minY() && this.maxZ >= other.minZ() &&
+            this.minX <= other.maxX() && this.minY <= other.maxY() && this.minZ <= other.maxZ();
     }
 
     public boolean intersectsAABB(AABBic other) {
@@ -592,9 +589,8 @@ public class AABBi implements Externalizable, AABBic {
             this.minX <= other.maxX() && this.minY <= other.maxY() && this.minZ <= other.maxZ();
     }
 
-    @Override
     public boolean intersectsSphere(double centerX, double centerY, double centerZ, double radiusSquared) {
-        return false;
+        return Intersectiond.testAabSphere(minX, minY, minZ, maxX, maxY, maxZ, centerX, centerY, centerZ, radiusSquared);
     }
 
     public boolean intersectsSphere(float centerX, float centerY, float centerZ, float radiusSquared) {
@@ -602,35 +598,31 @@ public class AABBi implements Externalizable, AABBic {
     }
 
     public boolean intersectsSphere(Spheref sphere) {
-        return Intersectionf.testAabSphere(this, sphere);
+        return Intersectionf.testAabSphere(minX, minY, minZ, maxX, maxY, maxZ, sphere.x, sphere.y, sphere.z, sphere.r * sphere.r);
     }
 
-    @Override
     public boolean intersectsSphere(Sphered sphere) {
-        return false;
+        return Intersectiond.testAabSphere(minX, minY, minZ, maxX, maxY, maxZ, sphere.x, sphere.y, sphere.z, sphere.r * sphere.r);
     }
 
     public boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ) {
         return Intersectionf.testRayAab(originX, originY, originZ, dirX, dirY, dirZ, minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    @Override
     public boolean intersectsRay(double originX, double originY, double originZ, double dirX, double dirY, double dirZ) {
-        return false;
+        return Intersectiond.testRayAab(originX, originY, originZ, dirX, dirY, dirZ, minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    @Override
     public boolean intersectsRay(Rayd ray) {
-        return false;
+        return Intersectiond.testRayAab(ray.oX, ray.oY, ray.oZ, ray.dX, ray.dY, ray.dZ, minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     public boolean intersectsRay(Rayf ray) {
-        return Intersectionf.testRayAab(ray, this);
+        return Intersectionf.testRayAab(ray.oX, ray.oY, ray.oZ, ray.dX, ray.dY, ray.dZ, minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    @Override
     public boolean intersectsRay(double originX, double originY, double originZ, double dirX, double dirY, double dirZ, Vector2d result) {
-        return false;
+        return Intersectiond.intersectRayAab(originX, originY, originZ, dirX, dirY, dirZ, minX, minY, minZ, maxX, maxY, maxZ, result);
     }
 
     public boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ, Vector2f result) {
@@ -641,24 +633,8 @@ public class AABBi implements Externalizable, AABBic {
         return Intersectionf.intersectRayAab(ray, this, result);
     }
 
-    @Override
     public boolean intersectsRay(Rayd ray, Vector2d result) {
-        return false;
-    }
-
-    @Override
-    public int intersectsLineSegment(double p0X, double p0Y, double p0Z, double p1X, double p1Y, double p1Z, Vector2d result) {
-        return 0;
-    }
-
-    @Override
-    public int intersectsLineSegment(float p0X, float p0Y, float p0Z, float p1X, float p1Y, float p1Z, Vector2f result) {
-        return 0;
-    }
-
-    @Override
-    public int intersectsLineSegment(LineSegmentf lineSegment, Vector2d result) {
-        return 0;
+        return Intersectiond.intersectRayAab(ray.oX, ray.oY, ray.oZ, ray.dX, ray.dY, ray.dZ, minX, minY, minZ, maxX, maxY, maxZ, result);
     }
 
     public int intersectLineSegment(float p0X, float p0Y, float p0Z, float p1X, float p1Y, float p1Z, Vector2f result) {
@@ -666,9 +642,8 @@ public class AABBi implements Externalizable, AABBic {
     }
 
     public int intersectLineSegment(LineSegmentf lineSegment, Vector2f result) {
-        return Intersectionf.intersectLineSegmentAab(lineSegment, this, result);
+        return Intersectionf.intersectLineSegmentAab(lineSegment.aX, lineSegment.aY, lineSegment.aZ, lineSegment.bX, lineSegment.bY, lineSegment.bZ, minX, minY, minZ, maxX, maxY, maxZ, result);
     }
-
 
     /**
      * Apply the given {@link Matrix4fc#isAffine() affine} transformation to this {@link AABBi}.

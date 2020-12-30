@@ -1,11 +1,9 @@
-package org.joml.primitives;
+package org.terasology.primitives;
 
-import org.joml.Math;
 import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
-import org.joml.Vector3d;
 
 public interface Rectangledc extends Shape2D {
     double minX();

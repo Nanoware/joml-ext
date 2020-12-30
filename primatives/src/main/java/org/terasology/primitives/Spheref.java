@@ -21,7 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Options;
+import org.joml.Vector2d;
+import org.joml.Vector2f;
+import org.joml.Vector3dc;
+import org.joml.Vector3fc;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -29,13 +35,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector2d;
-import org.joml.Vector2f;
-import org.joml.Vector3dc;
-import org.joml.Vector3fc;
 
 /**
  * Represents a 3D sphere.
@@ -327,7 +326,7 @@ public class Spheref implements Externalizable, Spherefc {
      * @return the string representation
      */
     public String toString() {
-        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
 
     /**
@@ -338,7 +337,7 @@ public class Spheref implements Externalizable, Spherefc {
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
-        return "[" + Runtime.format(x, formatter) + " " + Runtime.format(y, formatter) + " " + Runtime.format(z, formatter) + " " + Runtime.format(r, formatter) + "]";
+        return "[" + org.joml.Runtime.format(x, formatter) + " " + org.joml.Runtime.format(y, formatter) + " " + org.joml.Runtime.format(z, formatter) + " " + org.joml.Runtime.format(r, formatter) + "]";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {

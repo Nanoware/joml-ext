@@ -32,7 +32,7 @@ public interface Spheredc extends Shape3D {
      * @param dest will hold the result
      * @return dest
      */
-    org.joml.primitives.Sphered translate(Vector3fc xyz, org.joml.primitives.Sphered dest);
+    Sphered translate(Vector3fc xyz, Sphered dest);
 
     /**
      * Translate <code>this</code> by the given vector <code>xyz</code> and store the result in <code>dest</code>.
@@ -41,7 +41,7 @@ public interface Spheredc extends Shape3D {
      * @param dest will hold the result
      * @return dest
      */
-    org.joml.primitives.Sphered translate(Vector3dc xyz, org.joml.primitives.Sphered dest);
+    Sphered translate(Vector3dc xyz, Sphered dest);
 
     /**
      * Translate <code>this</code> by the vector <code>(x, y, z)</code> and store the result in <code>dest</code>.
@@ -52,5 +52,5 @@ public interface Spheredc extends Shape3D {
      * @param dest will hold the result
      * @return dest
      */
-    org.joml.primitives.Sphered translate(double x, double y, double z, org.joml.primitives.Sphered dest);
+    Sphered translate(double x, double y, double z, Sphered dest);
 }

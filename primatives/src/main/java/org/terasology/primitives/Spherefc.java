@@ -1,9 +1,9 @@
-package org.joml.primitives;
+package org.terasology.primitives;
 
 import org.joml.Vector3fc;
 
 public interface Spherefc extends Shape3D{
-    
+
     /**
      * @return the value of the x component
      */

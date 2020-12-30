@@ -21,16 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
 
 import org.joml.Math;
 import org.joml.RayAabIntersection;
-import org.joml.Runtime;
 import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 import org.joml.Vector4d;
+import org.joml.Runtime;
 
 /**
  * Contains intersection and distance tests for some 2D and 3D geometric primitives.

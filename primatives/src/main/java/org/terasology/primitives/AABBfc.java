@@ -21,15 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
-
-import java.text.NumberFormat;
+package org.terasology.primitives;
 
 import org.joml.Matrix4fc;
-import org.joml.Vector2f;
 import org.joml.Vector3d;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
+
+import java.text.NumberFormat;
 
 /**
  * Interface to a read-only view of an axis-aligned box defined via the minimum

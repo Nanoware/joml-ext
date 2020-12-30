@@ -21,7 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Options;
+import org.joml.Runtime;
+import org.joml.Vector2d;
+import org.joml.Vector2dc;
+import org.joml.Vector2f;
+import org.joml.Vector2fc;
+import org.joml.Vector3dc;
+import org.joml.Vector3fc;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -30,10 +39,6 @@ import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector2dc;
-import org.joml.Vector2fc;
 
 /**
  * Represents a 2D circle using double-precision floating-point numbers.
@@ -169,6 +174,93 @@ public class Circled implements Externalizable, Circledc {
         return dest;
     }
 
+    public boolean containsPoint(double x, double y, double z) {
+        return false;
+    }
+
+    public boolean containsPoint(float x, float y, float z) {
+        return false;
+    }
+
+    public boolean containsPoint(Vector3dc point) {
+        return false;
+    }
+
+    public boolean containsPoint(Vector3fc point) {
+        return false;
+    }
+
+    public boolean intersectsPlane(double a, double b, double c, double d) {
+        return false;
+    }
+
+    public boolean intersectsPlane(float a, float b, float c, float d) {
+        return false;
+    }
+
+    public boolean intersectsPlane(Planef plane) {
+        return false;
+    }
+
+    public boolean intersectsPlane(Planed plane) {
+        return false;
+    }
+
+    public boolean intersectsAABB(AABBdc other) {
+        return false;
+    }
+
+    public boolean intersectsAABB(AABBfc other) {
+        return false;
+    }
+
+    public boolean intersectsSphere(double centerX, double centerY, double centerZ, double radiusSquared) {
+        return false;
+    }
+
+    public boolean intersectsSphere(float centerX, float centerY, float centerZ, float radiusSquared) {
+        return false;
+    }
+
+    public boolean intersectsSphere(Spheref sphere) {
+        return false;
+    }
+
+    public boolean intersectsSphere(Sphered sphere) {
+        return false;
+    }
+
+    public boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ) {
+        return false;
+    }
+
+    public boolean intersectsRay(double originX, double originY, double originZ, double dirX, double dirY, double dirZ) {
+        return false;
+    }
+
+    public boolean intersectsRay(Rayd ray) {
+        return false;
+    }
+
+    public boolean intersectsRay(Rayf ray) {
+        return false;
+    }
+
+    public boolean intersectsRay(double originX, double originY, double originZ, double dirX, double dirY, double dirZ, Vector2d result) {
+        return false;
+    }
+
+    public boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ, Vector2f result) {
+        return false;
+    }
+
+    public boolean intersectsRay(Rayf ray, Vector2f result) {
+        return false;
+    }
+
+    public boolean intersectsRay(Rayd ray, Vector2d result) {
+        return false;
+    }
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -218,7 +310,7 @@ public class Circled implements Externalizable, Circledc {
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
-        return "(" + Runtime.format(x, formatter) + " " + Runtime.format(y, formatter) + " " + Runtime.format(r, formatter) + ")";
+        return "(" + Runtime.format(x, formatter) + " " + Runtime.format(y, formatter) + " " + org.joml.Runtime.format(r, formatter) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {
@@ -232,5 +324,4 @@ public class Circled implements Externalizable, Circledc {
         y = in.readDouble();
         r = in.readDouble();
     }
-
 }

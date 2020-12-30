@@ -1,4 +1,4 @@
-package org.joml.primitives;
+package org.terasology.primitives;
 
 import org.joml.Vector2d;
 import org.joml.Vector2f;

@@ -25,9 +25,13 @@ package org.terasology.primitives;
 
 import org.joml.Math;
 import org.joml.Options;
+import org.joml.Vector2d;
+import org.joml.Vector2f;
+import org.joml.Vector3dc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
+import org.joml.Runtime;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -41,7 +45,7 @@ import java.text.NumberFormat;
  *
  * @author Kai Burjack
  */
-public class Planef implements Externalizable, org.joml.primitives.Planefc {
+public class Planef implements Externalizable, Planefc {
 
     /**
      * The factor <code>a</code> in the plane equation <code>a*x + b*y + c*z + d = 0</code>.
@@ -192,7 +196,7 @@ public class Planef implements Externalizable, org.joml.primitives.Planefc {
      * @return the signed distance between this plane and the point
      */
     public float distance(float x, float y, float z) {
-        return org.joml.primitives.Intersectionf.distancePointPlane(x, y, z, a, b, c, d);
+        return Intersectionf.distancePointPlane(x, y, z, a, b, c, d);
     }
 
     /**
@@ -265,6 +269,142 @@ public class Planef implements Externalizable, org.joml.primitives.Planefc {
         return dest;
     }
 
+
+    /**
+     * Return a string representation of this plane by formatting the components with the given {@link NumberFormat}.
+     *
+     * @param formatter
+     *          the {@link NumberFormat} used to format the components with
+     * @return the string representation
+     */
+    public String toString(NumberFormat formatter) {
+        return "[" + org.joml.Runtime.format(a, formatter) + " " + org.joml.Runtime.format(b, formatter) + " " + org.joml.Runtime.format(c, formatter) + " " + org.joml.Runtime.format(d, formatter) + "]";
+    }
+
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeFloat(a);
+        out.writeFloat(b);
+        out.writeFloat(c);
+        out.writeFloat(d);
+    }
+
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        a = in.readFloat();
+        b = in.readFloat();
+        c = in.readFloat();
+        d = in.readFloat();
+    }
+
+    @Override
+    public boolean containsPoint(double x, double y, double z) {
+        return false;
+    }
+
+    @Override
+    public boolean containsPoint(float x, float y, float z) {
+        return false;
+    }
+
+    @Override
+    public boolean containsPoint(Vector3dc point) {
+        return false;
+    }
+
+    @Override
+    public boolean containsPoint(Vector3fc point) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsPlane(double a, double b, double c, double d) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsPlane(float a, float b, float c, float d) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsPlane(Planef plane) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsPlane(Planed plane) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsAABB(AABBdc other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsAABB(AABBfc other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsSphere(double centerX, double centerY, double centerZ, double radiusSquared) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsSphere(float centerX, float centerY, float centerZ, float radiusSquared) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsSphere(Spheref sphere) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsSphere(Sphered sphere) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(double originX, double originY, double originZ, double dirX, double dirY, double dirZ) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(Rayd ray) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(Rayf ray) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(double originX, double originY, double originZ, double dirX, double dirY, double dirZ, Vector2d result) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ, Vector2f result) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(Rayf ray, Vector2f result) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsRay(Rayd ray, Vector2d result) {
+        return false;
+    }
+
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -302,32 +442,6 @@ public class Planef implements Externalizable, org.joml.primitives.Planefc {
      * @return the string representation
      */
     public String toString() {
-        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
-
-    /**
-     * Return a string representation of this plane by formatting the components with the given {@link NumberFormat}.
-     *
-     * @param formatter
-     *          the {@link NumberFormat} used to format the components with
-     * @return the string representation
-     */
-    public String toString(NumberFormat formatter) {
-        return "[" + org.joml.Runtime.format(a, formatter) + " " + org.joml.Runtime.format(b, formatter) + " " + org.joml.Runtime.format(c, formatter) + " " + org.joml.Runtime.format(d, formatter) + "]";
-    }
-
-    public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeFloat(a);
-        out.writeFloat(b);
-        out.writeFloat(c);
-        out.writeFloat(d);
-    }
-
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        a = in.readFloat();
-        b = in.readFloat();
-        c = in.readFloat();
-        d = in.readFloat();
-    }
-
 }

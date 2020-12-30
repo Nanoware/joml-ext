@@ -24,6 +24,8 @@
 package org.terasology.primitives;
 
 import org.joml.Options;
+import org.joml.Runtime;
+import org.joml.Vector2dc;
 import org.joml.Vector2fc;
 
 import java.io.Externalizable;
@@ -38,7 +40,7 @@ import java.text.NumberFormat;
  *
  * @author Kai Burjack
  */
-public class Circlef implements Externalizable, org.joml.primitives.Circlefc {
+public class Circlef implements Externalizable, Circlefc {
 
     /**
      * The x coordiante of the circle's center.
@@ -143,12 +145,23 @@ public class Circlef implements Externalizable, org.joml.primitives.Circlefc {
         return dest;
     }
 
-
-    public boolean intersectsRectangle(org.joml.primitives.Rectangledc other) {
+    public boolean containsPoint(double x, double y) {
         return false;
     }
 
-    public boolean intersectsRectangle(org.joml.primitives.Rectanglefc other) {
+    public boolean containsPoint(float x, float y) {
+        return false;
+    }
+
+    public boolean containsPoint(Vector2dc point) {
+        return false;
+    }
+
+    public boolean intersectsRectangle(Rectangledc other) {
+        return false;
+    }
+
+    public boolean intersectsRectangle(Rectanglefc other) {
         return false;
     }
 
@@ -156,11 +169,11 @@ public class Circlef implements Externalizable, org.joml.primitives.Circlefc {
         return false;
     }
 
-    public boolean intersectsCircle(org.joml.primitives.Circlefc other) {
+    public boolean intersectsCircle(Circlefc other) {
         return false;
     }
 
-    public boolean intersectsCircle(org.joml.primitives.Circledc other) {
+    public boolean intersectsCircle(Circledc other) {
         return false;
     }
 
@@ -198,7 +211,7 @@ public class Circlef implements Externalizable, org.joml.primitives.Circlefc {
      * @return the string representation
      */
     public String toString() {
-        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
 
     /**
@@ -209,7 +222,7 @@ public class Circlef implements Externalizable, org.joml.primitives.Circlefc {
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
-        return "(" + org.joml.Runtime.format(x, formatter) + " " + org.joml.Runtime.format(y, formatter) + " " + org.joml.Runtime.format(r, formatter) + ")";
+        return "(" + Runtime.format(x, formatter) + " " + Runtime.format(y, formatter) + " " + Runtime.format(r, formatter) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {

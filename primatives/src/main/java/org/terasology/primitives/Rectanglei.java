@@ -21,7 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Math;
+import org.joml.Options;
+import org.joml.Runtime;
+import org.joml.Vector2dc;
+import org.joml.Vector2fc;
+import org.joml.Vector2i;
+import org.joml.Vector2ic;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -29,13 +37,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import org.joml.Math;
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector2fc;
-import org.joml.Vector2i;
-import org.joml.Vector2ic;
 
 /**
  * Represents a 2D axis-aligned rectangle.
@@ -308,6 +309,16 @@ public class Rectanglei implements Externalizable, Rectangleic {
                maxY >= other.minY() && minY <= other.maxY();
     }
 
+    @Override
+    public boolean intersectsCircle(Circlefc other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersectsCircle(Circledc other) {
+        return false;
+    }
+
     private Rectanglei validate() {
         if (!isValid()) {
             minX = Integer.MAX_VALUE;
@@ -422,6 +433,11 @@ public class Rectanglei implements Externalizable, Rectangleic {
         return containsPoint(point.x(), point.y());
     }
 
+    @Override
+    public boolean containsPoint(double x, double y) {
+        return false;
+    }
+
     /**
      * Test whether the point <code>(x, y)</code> lies inside this BlockRegion.
      *
@@ -431,6 +447,10 @@ public class Rectanglei implements Externalizable, Rectangleic {
      */
     public boolean containsPoint(float x, float y) {
         return x > this.minX && y > this.minY && x < this.maxX && y < this.maxY;
+    }
+
+    public boolean containsPoint(Vector2dc point) {
+        return false;
     }
 
     /**

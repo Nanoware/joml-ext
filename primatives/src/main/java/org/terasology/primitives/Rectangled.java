@@ -21,7 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.joml.primitives;
+package org.terasology.primitives;
+
+import org.joml.Math;
+import org.joml.Options;
+import org.joml.Vector2d;
+import org.joml.Vector2dc;
+import org.joml.Vector2f;
+import org.joml.Vector2fc;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -29,14 +36,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import org.joml.Math;
-import org.joml.Options;
-import org.joml.Runtime;
-import org.joml.Vector2d;
-import org.joml.Vector2dc;
-import org.joml.Vector2f;
-import org.joml.Vector2fc;
 
 /**
  * Represents a 2D axis-aligned rectangle.
@@ -707,7 +706,7 @@ public class Rectangled implements Externalizable, Rectangledc {
      * @return the string representation
      */
     public String toString() {
-        return Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
+        return org.joml.Runtime.formatNumbers(toString(Options.NUMBER_FORMAT));
     }
 
     /**
@@ -718,8 +717,8 @@ public class Rectangled implements Externalizable, Rectangledc {
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
-        return "(" + Runtime.format(minX, formatter) + " " + Runtime.format(minY, formatter) + ") < "
-             + "(" + Runtime.format(maxX, formatter) + " " + Runtime.format(maxY, formatter) + ")";
+        return "(" + org.joml.Runtime.format(minX, formatter) + " " + org.joml.Runtime.format(minY, formatter) + ") < "
+             + "(" + org.joml.Runtime.format(maxX, formatter) + " " + org.joml.Runtime.format(maxY, formatter) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {
