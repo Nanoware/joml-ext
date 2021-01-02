@@ -42,7 +42,7 @@ import java.text.NumberFormat;
  *
  * @author Kai Burjack
  */
-public class Rectanglef implements Externalizable {
+public class Rectanglef implements Externalizable, Rectanglefc {
 
     /**
      * The x coordinate of the minimum corner.
@@ -112,6 +112,42 @@ public class Rectanglef implements Externalizable {
         this.minY = minY;
         this.maxX = maxX;
         this.maxY = maxY;
+    }
+
+    @Override
+    public float minX() {
+        return this.minX;
+    }
+
+    @Override
+    public float minY() {
+        return this.minY;
+    }
+
+    @Override
+    public float maxX() {
+        return this.maxX;
+    }
+
+    @Override
+    public float maxY() {
+        return this.maxY;
+    }
+
+    public boolean containsRectangle(Rectangled rectangle) {
+        return rectangle.minX >= minX() && rectangle.maxX <= maxX() &&
+            rectangle.minY >= minY() && rectangle.maxY <= maxY();
+    }
+
+
+    public boolean containsRectangle(Rectanglefc rectangle) {
+        return rectangle.minX() >= minX() && rectangle.maxX() <= maxX() &&
+            rectangle.minY() >= minY() && rectangle.maxY() <= maxY();
+    }
+
+    public boolean containsRectangle(Rectanglei rectangle) {
+        return rectangle.minX >= minX() && rectangle.maxX <= maxX() &&
+            rectangle.minY >= minY() && rectangle.maxY <= maxY();
     }
 
     /**
@@ -186,10 +222,23 @@ public class Rectanglef implements Externalizable {
         return this;
     }
 
+    public float getSizeX() {
+        return maxX - minX;
+    }
+
+    public float getSizeY() {
+        return maxY - minY;
+    }
+
+    public Vector2f getSize(Vector2f dest) {
+        return dest.set(maxX - minX, maxY - minY);
+    }
+
     /**
      * Return the length of the rectangle in the X dimension.
      *
      * @return length in the X dimension
+     * @deprecated use {@link #getSizeX()}
      */
     public float lengthX() {
         return maxX - minX;
@@ -199,6 +248,7 @@ public class Rectanglef implements Externalizable {
      * Return the length of the rectangle in the Y dimension.
      *
      * @return length in the Y dimension
+     * @deprecated use {@link #getSizeY()}
      */
     public float lengthY() {
         return maxY - minY;
@@ -237,17 +287,6 @@ public class Rectanglef implements Externalizable {
         return union(p.x(), p.y(), this);
     }
 
-    /**
-     * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in <code>dest</code>.
-     *
-     * @param x
-     *          the x coordinate of the point
-     * @param y
-     *          the y coordinate of the point
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
     public Rectanglef union(float x, float y, Rectanglef dest) {
         dest.minX = this.minX < x ? this.minX : x;
         dest.minY = this.minY < y ? this.minY : y;
@@ -256,15 +295,7 @@ public class Rectanglef implements Externalizable {
         return dest;
     }
 
-    /**
-     * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in <code>dest</code>.
-     *
-     * @param p
-     *          the point
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef union(Vector2ic p, Rectanglef dest) {
         return union(p.x(), p.y(), dest);
     }
@@ -280,15 +311,7 @@ public class Rectanglef implements Externalizable {
         return this.union(other, this);
     }
 
-    /**
-     * Compute the union of <code>this</code> and <code>other</code> and store the result in <code>dest</code>.
-     *
-     * @param other
-     *          the other {@link Rectanglef}
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef union(Rectanglef other, Rectanglef dest) {
         dest.minX = this.minX < other.minX ? this.minX : other.minX;
         dest.minY = this.minY < other.minY ? this.minY : other.minY;
@@ -321,13 +344,6 @@ public class Rectanglef implements Externalizable {
                maxY > other.minY && minY < other.maxY;
     }
 
-    /**
-     * Check if this and the given rectangle intersect.
-     *
-     * @param other
-     *          the other rectangle
-     * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
-     */
     public boolean intersectsRectangle(Rectanglei other) {
         return minX < other.maxX && maxX > other.minX &&
                maxY > other.minY && minY < other.maxY;
@@ -343,11 +359,6 @@ public class Rectanglef implements Externalizable {
         return this;
     }
 
-    /**
-     * Check whether <code>this</code> rectangle represents a valid rectangle.
-     *
-     * @return <code>true</code> iff this rectangle is valid; <code>false</code> otherwise
-     */
     public boolean isValid() {
         return minX < maxX && minY < maxY;
     }
@@ -380,19 +391,6 @@ public class Rectanglef implements Externalizable {
         return intersection(other, this);
     }
 
-    /**
-     * Compute the rectangle of intersection between <code>this</code> and the given rectangle and
-     * store the result in <code>dest</code>.
-     * <p>
-     * If the two rectangles do not intersect, then {@link Float#NaN} is stored in each component
-     * of <code>dest</code>.
-     *
-     * @param other
-     *          the other rectangle
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
     public Rectanglef intersection(Rectanglef other, Rectanglef dest) {
         dest.minX = Math.max(minX, other.minX);
         dest.minY = Math.max(minY, other.minY);
@@ -401,19 +399,7 @@ public class Rectanglef implements Externalizable {
         return dest.validate();
     }
 
-    /**
-     * Compute the rectangle of intersection between <code>this</code> and the given rectangle and
-     * store the result in <code>dest</code>.
-     * <p>
-     * If the two rectangles do not intersect, then {@link Double#NaN} is stored in each component
-     * of <code>dest</code>.
-     *
-     * @param other
-     *          the other rectangle
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef intersection(Rectanglei other, Rectanglef dest) {
         dest.minX = Math.max(minX, other.minX);
         dest.minY = Math.max(minY, other.minY);
@@ -428,46 +414,12 @@ public class Rectanglef implements Externalizable {
      * @param dest
      *          will hold the result
      * @return dest
+     * @deprecated use {@link #getSize(Vector2f)}
      */
     public Vector2f lengths(Vector2f dest) {
         return dest.set(lengthX(), lengthY());
     }
 
-    /**
-     * Check if this rectangle contains the given <code>rectangle</code>.
-     *
-     * @param rectangle
-     *          the rectangle to test
-     * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
-     */
-    public boolean containsRectangle(Rectangled rectangle) {
-        return rectangle.minX >= minX && rectangle.maxX <= maxX &&
-               rectangle.minY >= minY && rectangle.maxY <= maxY;
-    }
-
-    /**
-     * Check if this rectangle contains the given <code>rectangle</code>.
-     *
-     * @param rectangle
-     *          the rectangle to test
-     * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
-     */
-    public boolean containsRectangle(Rectanglef rectangle) {
-        return rectangle.minX >= minX && rectangle.maxX <= maxX &&
-               rectangle.minY >= minY && rectangle.maxY <= maxY;
-    }
-
-    /**
-     * Check if this rectangle contains the given <code>rectangle</code>.
-     *
-     * @param rectangle
-     *          the rectangle to test
-     * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
-     */
-    public boolean containsRectangle(Rectanglei rectangle) {
-        return rectangle.minX >= minX && rectangle.maxX <= maxX &&
-               rectangle.minY >= minY && rectangle.maxY <= maxY;
-    }
 
     /**
      * Check if this rectangle contains the given <code>point</code>.
@@ -504,15 +456,7 @@ public class Rectanglef implements Externalizable {
         return translate(xy.x(), xy.y(), this);
     }
 
-    /**
-     * Translate <code>this</code> by the given vector <code>xy</code> and store the result in <code>dest</code>.
-     *
-     * @param xy
-     *          the vector to translate by
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef translate(Vector2fc xy, Rectanglef dest) {
         return translate(xy.x(), xy.y(), dest);
     }
@@ -530,17 +474,7 @@ public class Rectanglef implements Externalizable {
         return translate(x, y, this);
     }
 
-    /**
-     * Translate <code>this</code> by the vector <code>(x, y)</code> and store the result in <code>dest</code>.
-     *
-     * @param x
-     *          the x coordinate to translate by
-     * @param y
-     *          the y coordinate to translate by
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef translate(float x, float y, Rectanglef dest) {
         dest.minX = minX + x;
         dest.minY = minY + y;
@@ -560,15 +494,7 @@ public class Rectanglef implements Externalizable {
         return scale(sf, sf);
     }
 
-    /**
-     * Scale <code>this</code> about the origin and store the result in <code>dest</code>.
-     *
-     * @param sf
-     *          the scaling factor in the x and y axis
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef scale(float sf, Rectanglef dest) {
         return scale(sf, sf, dest);
     }
@@ -590,21 +516,7 @@ public class Rectanglef implements Externalizable {
         return scale(sf, sf, ax, ay);
     }
 
-    /**
-     * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
-     * <p>
-     * This is equivalent to <code>translate(-ax, -ay, dest).scale(sf).translate(ax, ay)</code>
-     *
-     * @param sf
-     *          the scaling factor in the x and y axis
-     * @param ax
-     *          the x coordinate of the anchor
-     * @param ay
-     *          the y coordinate of the anchor
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef scale(float sf, float ax, float ay, Rectanglef dest) {
         return scale(sf, sf, ax, ay, dest);
     }
@@ -624,19 +536,7 @@ public class Rectanglef implements Externalizable {
         return scale(sf, anchor.x(), anchor.y());
     }
 
-    /**
-     * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
-     * <p>
-     * This is equivalent to <code>translate(anchor.negate(), dest).scale(sf).translate(anchor.negate())</code>
-     *
-     * @param sf
-     *          the scaling factor in the x and y axis
-     * @param anchor
-     *          the location of the anchor
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef scale(float sf, Vector2fc anchor, Rectanglef dest) {
         return scale(sf, anchor.x(), anchor.y(), dest);
     }
@@ -654,17 +554,6 @@ public class Rectanglef implements Externalizable {
         return scale(sx, sy, 0f, 0f);
     }
 
-    /**
-     * Scale <code>this</code> about the origin and store the result in <code>dest</code>.
-     *
-     * @param sx
-     *          the scaling factor on the x axis
-     * @param sy
-     *          the scaling factor on the y axis
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
     public Rectanglef scale(float sx, float sy, Rectanglef dest) {
         return scale(sx, sy, 0f, 0f, dest);
     }
@@ -709,23 +598,6 @@ public class Rectanglef implements Externalizable {
         return scale(sx, sy, anchor.x(), anchor.y());
     }
 
-    /**
-     * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
-     * <p>
-     * This is equivalent to <code>translate(-ax, -ay, dest).scale(sx, sy).translate(ax, ay)</code>
-     *
-     * @param sx
-     *          the scaling factor on the x axis
-     * @param sy
-     *          the scaling factor on the y axis
-     * @param ax
-     *          the x coordinate of the anchor
-     * @param ay
-     *          the y coordinate of the anchor
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
     public Rectanglef scale(float sx, float sy, float ax, float ay, Rectanglef dest) {
         dest.minX = (minX - ax) * sx + ax;
         dest.minY = (minY - ay) * sy + ay;
@@ -734,21 +606,7 @@ public class Rectanglef implements Externalizable {
         return dest;
     }
 
-    /**
-     * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
-     * <p>
-     * This is equivalent to <code>translate(anchor.negate(), dest).scale(sx, sy).translate(anchor.negate())</code>
-     *
-     * @param sx
-     *          the scaling factor on the x axis
-     * @param sy
-     *          the scaling factor on the y axis
-     * @param anchor
-     *          the location of the anchor
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
+
     public Rectanglef scale(float sx, float sy, Vector2fc anchor, Rectanglef dest) {
         return scale(sx, sy, anchor.x(), anchor.y(), dest);
     }
