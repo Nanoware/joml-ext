@@ -134,9 +134,9 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return this.maxY;
     }
 
-    public boolean containsRectangle(Rectangled rectangle) {
-        return rectangle.minX >= minX() && rectangle.maxX <= maxX() &&
-            rectangle.minY >= minY() && rectangle.maxY <= maxY();
+    public boolean containsRectangle(Rectangledc rectangle) {
+        return rectangle.minX() >= minX() && rectangle.maxX() <= maxX() &&
+            rectangle.minY() >= minY() && rectangle.maxY() <= maxY();
     }
 
 

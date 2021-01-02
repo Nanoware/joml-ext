@@ -1,32 +1,34 @@
 package org.terasology.primitives;
 
+import org.joml.Vector2d;
+import org.joml.Vector2dc;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.joml.Vector2ic;
 
-public interface Rectanglefc {
+public interface Rectangledc {
 
-    float minX();
+    double minX();
 
-    float minY();
+    double minY();
 
-    float maxX();
+    double maxX();
 
-    float maxY();
+    double maxY();
 
     /**
      * Return the length of the rectangle in the X dimension.
      *
      * @return length in the X dimension
      */
-    float getSizeX();
+    double getSizeX();
 
     /**
      * Return the length of the rectangle in the Y dimension.
      *
      * @return length in the Y dimension
      */
-    float getSizeY();
+    double getSizeY();
 
     /**
      * Return the size of this rectangle in the X and Y dimensions and store the result in <code>dest</code>.
@@ -35,7 +37,8 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Vector2f getSize(Vector2f dest);
+    Vector2d getSize(Vector2d dest);
+
 
     /**
      * Check if this rectangle contains the given <code>rectangle</code>.
@@ -63,6 +66,7 @@ public interface Rectanglefc {
      */
     boolean containsRectangle(Rectanglei rectangle);
 
+
     /**
      * Translate <code>this</code> by the given vector <code>xy</code> and store the result in <code>dest</code>.
      *
@@ -72,7 +76,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef translate(Vector2fc xy, Rectanglef dest);
+    Rectangled translate(Vector2dc xy, Rectangled dest);
 
 
     /**
@@ -86,7 +90,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef translate(float x, float y, Rectanglef dest);
+    Rectangled translate(double x, double y, Rectangled dest);
 
     /**
      * Scale <code>this</code> about the origin and store the result in <code>dest</code>.
@@ -97,7 +101,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef scale(float sf, Rectanglef dest);
+    Rectangled scale(double sf, Rectangled dest);
 
     /**
      * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
@@ -114,7 +118,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef scale(float sf, float ax, float ay, Rectanglef dest);
+    Rectangled scale(double sf, double ax, double ay, Rectangled dest);
 
     /**
      * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
@@ -131,7 +135,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef scale(float sx, float sy, Vector2fc anchor, Rectanglef dest);
+    Rectangled scale(double sx, double sy, Vector2dc anchor, Rectangled dest);
 
     /**
      * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
@@ -146,7 +150,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef scale(float sf, Vector2fc anchor, Rectanglef dest);
+    Rectangled scale(double sf, Vector2dc anchor, Rectangled dest);
 
     /**
      * Scale <code>this</code> about the origin and store the result in <code>dest</code>.
@@ -159,7 +163,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef scale(float sx, float sy, Rectanglef dest);
+    Rectangled scale(double sx, double sy, Rectangled dest);
 
     /**
      * Scale <code>this</code> about an anchor and store the result in <code>dest</code>.
@@ -178,42 +182,19 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef scale(float sx, float sy, float ax, float ay, Rectanglef dest);
+    Rectangled scale(double sx, double sy, double ax, double ay, Rectangled dest);
 
-    /**
-     * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in <code>dest</code>.
-     *
-     * @param x
-     *          the x coordinate of the point
-     * @param y
-     *          the y coordinate of the point
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
-    Rectanglef union(float x, float y, Rectanglef dest);
-
-    /**
-     * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in <code>dest</code>.
-     *
-     * @param p
-     *          the point
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
-    Rectanglef union(Vector2ic p, Rectanglef dest);
 
     /**
      * Compute the union of <code>this</code> and <code>other</code> and store the result in <code>dest</code>.
      *
      * @param other
-     *          the other {@link Rectanglef}
+     *          the other {@link Rectangled}
      * @param dest
      *          will hold the result
      * @return dest
      */
-    Rectanglef union(Rectanglef other, Rectanglef dest);
+    Rectangled union(Rectangledc other, Rectangled dest);
 
     /**
      * Check if this and the given rectangle intersect.
@@ -222,7 +203,7 @@ public interface Rectanglefc {
      *          the other rectangle
      * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
      */
-     boolean intersectsRectangle(Rectangled other);
+    boolean intersectsRectangle(Rectangledc other);
 
     /**
      * Check if this and the given rectangle intersect.
@@ -231,7 +212,7 @@ public interface Rectanglefc {
      *          the other rectangle
      * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
      */
-     boolean intersectsRectangle(Rectanglef other);
+    boolean intersectsRectangle(Rectanglefc other);
 
     /**
      * Check if this and the given rectangle intersect.
@@ -262,7 +243,7 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef intersection(Rectanglef other, Rectanglef dest);
+    Rectangled intersection(Rectangledc other, Rectangled dest);
 
     /**
      * Compute the rectangle of intersection between <code>this</code> and the given rectangle and
@@ -277,8 +258,21 @@ public interface Rectanglefc {
      *          will hold the result
      * @return dest
      */
-    Rectanglef intersection(Rectanglei other, Rectanglef dest);
+    Rectangled intersection(Rectanglefc other, Rectangled dest);
 
-
+    /**
+     * Compute the rectangle of intersection between <code>this</code> and the given rectangle and
+     * store the result in <code>dest</code>.
+     * <p>
+     * If the two rectangles do not intersect, then {@link Double#NaN} is stored in each component
+     * of <code>dest</code>.
+     *
+     * @param other
+     *          the other rectangle
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    Rectangled intersection(Rectanglei other, Rectangled dest);
 
 }
