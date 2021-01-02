@@ -29,6 +29,7 @@ import org.joml.Runtime;
 import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector2fc;
+import org.joml.Vector2ic;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -42,7 +43,7 @@ import java.text.NumberFormat;
  *
  * @author Kai Burjack
  */
-public class Rectangled implements Externalizable {
+public class Rectangled implements Externalizable, Rectangledc {
 
     /**
      * The x coordinate of the minimum corner.
@@ -60,6 +61,41 @@ public class Rectangled implements Externalizable {
      * The y coordinate of the maximum corner.
      */
     public double maxY;
+
+    @Override
+    public double minX() {
+        return this.minX;
+    }
+
+    @Override
+    public double minY() {
+        return this.minY;
+    }
+
+    @Override
+    public double maxX() {
+        return this.maxX;
+    }
+
+    @Override
+    public double maxY() {
+        return this.maxY;
+    }
+
+    @Override
+    public double getSizeX() {
+        return this.maxX - this.minX;
+    }
+
+    @Override
+    public double getSizeY() {
+        return this.maxY - this.minY;
+    }
+
+    @Override
+    public Vector2d getSize(Vector2d dest) {
+        return dest.set(this.maxX - this.minX, this.maxY - this.minY);
+    }
 
     /**
      * Create a new {@link Rectangled} with a minimum and maximum corner of <code>(0, 0)</code>.
@@ -232,6 +268,15 @@ public class Rectangled implements Externalizable {
         return minX < maxX && minY < maxY;
     }
 
+    @Override
+    public Rectangled intersection(Rectangledc other, Rectangled dest) {
+        dest.minX = Math.max(minX, other.minX());
+        dest.minY = Math.max(minY, other.minY());
+        dest.maxX = Math.min(maxX, other.maxX());
+        dest.maxY = Math.min(maxY, other.maxY());
+        return dest.validate();
+    }
+
     /**
      * Compute the rectangle of intersection between <code>this</code> and the given rectangle.
      * <p>
@@ -242,49 +287,15 @@ public class Rectangled implements Externalizable {
      *          the other rectangle
      * @return this
      */
-    public Rectangled intersection(Rectangled other) {
+    public Rectangled intersection(Rectangledc other) {
         return intersection(other, this);
     }
 
-    /**
-     * Compute the rectangle of intersection between <code>this</code> and the given rectangle and
-     * store the result in <code>dest</code>.
-     * <p>
-     * If the two rectangles do not intersect, then {@link Double#NaN} is stored in each component
-     * of <code>dest</code>.
-     *
-     * @param other
-     *          the other rectangle
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
-    public Rectangled intersection(Rectangled other, Rectangled dest) {
-        dest.minX = Math.max(minX, other.minX);
-        dest.minY = Math.max(minY, other.minY);
-        dest.maxX = Math.min(maxX, other.maxX);
-        dest.maxY = Math.min(maxY, other.maxY);
-        return dest.validate();
-    }
-
-    /**
-     * Compute the rectangle of intersection between <code>this</code> and the given rectangle and
-     * store the result in <code>dest</code>.
-     * <p>
-     * If the two rectangles do not intersect, then {@link Double#NaN} is stored in each component
-     * of <code>dest</code>.
-     *
-     * @param other
-     *          the other rectangle
-     * @param dest
-     *          will hold the result
-     * @return dest
-     */
-    public Rectangled intersection(Rectanglef other, Rectangled dest) {
-        dest.minX = Math.max(minX, other.minX);
-        dest.minY = Math.max(minY, other.minY);
-        dest.maxX = Math.min(maxX, other.maxX);
-        dest.maxY = Math.min(maxY, other.maxY);
+    public Rectangled intersection(Rectanglefc other, Rectangled dest) {
+        dest.minX = Math.max(minX, other.minX());
+        dest.minY = Math.max(minY, other.minY());
+        dest.maxX = Math.min(maxX, other.maxX());
+        dest.maxY = Math.min(maxY, other.maxY());
         return dest.validate();
     }
 
@@ -315,6 +326,7 @@ public class Rectangled implements Externalizable {
      * @param dest
      *          will hold the result
      * @return dest
+     * @deprecated Use {@link #getSize(Vector2d)}
      */
     public Vector2d lengths(Vector2d dest) {
         return dest.set(lengthX(), lengthY());
@@ -327,9 +339,9 @@ public class Rectangled implements Externalizable {
      *          the rectangle to test
      * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
      */
-    public boolean containsRectangle(Rectangled rectangle) {
-        return rectangle.minX >= minX && rectangle.maxX <= maxX &&
-               rectangle.minY >= minY && rectangle.maxY <= maxY;
+    public boolean containsRectangle(Rectangledc rectangle) {
+        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
+               rectangle.minY() >= minY && rectangle.maxY() <= maxY;
     }
 
     /**
@@ -339,10 +351,12 @@ public class Rectangled implements Externalizable {
      *          the rectangle to test
      * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
      */
-    public boolean containsRectangle(Rectanglef rectangle) {
-        return rectangle.minX >= minX && rectangle.maxX <= maxX &&
-               rectangle.minY >= minY && rectangle.maxY <= maxY;
+    public boolean containsRectangle(Rectanglefc rectangle) {
+        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
+               rectangle.minY() >= minY && rectangle.maxY() <= maxY;
     }
+
+
 
     /**
      * Check if this rectangle contains the given <code>rectangle</code>.
@@ -419,7 +433,7 @@ public class Rectangled implements Externalizable {
      *          the other {@link Rectanglef}
      * @return this
      */
-    public Rectangled union(Rectangled other) {
+    public Rectangled union(Rectangledc other) {
         return this.union(other, this);
     }
 
@@ -432,11 +446,11 @@ public class Rectangled implements Externalizable {
      *          will hold the result
      * @return dest
      */
-    public Rectangled union(Rectangled other, Rectangled dest) {
-        dest.minX = this.minX < other.minX ? this.minX : other.minX;
-        dest.minY = this.minY < other.minY ? this.minY : other.minY;
-        dest.maxX = this.maxX > other.maxX ? this.maxX : other.maxX;
-        dest.maxY = this.maxY > other.maxY ? this.maxY : other.maxY;
+    public Rectangled union(Rectangledc other, Rectangled dest) {
+        dest.minX = this.minX < other.minX() ? this.minX : other.minX();
+        dest.minY = this.minY < other.minY() ? this.minY : other.minY();
+        dest.maxX = this.maxX > other.maxX() ? this.maxX : other.maxX();
+        dest.maxY = this.maxY > other.maxY() ? this.maxY : other.maxY();
         return dest;
     }
 
@@ -447,9 +461,9 @@ public class Rectangled implements Externalizable {
      *          the other rectangle
      * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
      */
-    public boolean intersectsRectangle(Rectangled other) {
-        return minX < other.maxX && maxX > other.minX &&
-               maxY > other.minY && minY < other.maxY;
+    public boolean intersectsRectangle(Rectangledc other) {
+        return minX < other.maxX() && maxX > other.minX() &&
+               maxY > other.minY() && minY < other.maxY();
     }
 
     /**
@@ -459,9 +473,9 @@ public class Rectangled implements Externalizable {
      *          the other rectangle
      * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
      */
-    public boolean intersectsRectangle(Rectanglef other) {
-        return minX < other.maxX && maxX > other.minX &&
-               maxY > other.minY && minY < other.maxY;
+    public boolean intersectsRectangle(Rectanglefc other) {
+        return minX < other.maxX() && maxX > other.minX() &&
+               maxY > other.minY() && minY < other.maxY();
     }
 
     /**
