@@ -222,14 +222,17 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return this;
     }
 
+    @Override
     public float getSizeX() {
         return maxX - minX;
     }
 
+    @Override
     public float getSizeY() {
         return maxY - minY;
     }
 
+    @Override
     public Vector2f getSize(Vector2f dest) {
         return dest.set(maxX - minX, maxY - minY);
     }
@@ -287,6 +290,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return union(p.x(), p.y(), this);
     }
 
+    @Override
     public Rectanglef union(float x, float y, Rectanglef dest) {
         dest.minX = this.minX < x ? this.minX : x;
         dest.minY = this.minY < y ? this.minY : y;
@@ -295,7 +299,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return dest;
     }
 
-
+    @Override
     public Rectanglef union(Vector2ic p, Rectanglef dest) {
         return union(p.x(), p.y(), dest);
     }
@@ -311,7 +315,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return this.union(other, this);
     }
 
-
+    @Override
     public Rectanglef union(Rectanglef other, Rectanglef dest) {
         dest.minX = this.minX < other.minX ? this.minX : other.minX;
         dest.minY = this.minY < other.minY ? this.minY : other.minY;
@@ -327,6 +331,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
      *          the other rectangle
      * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
      */
+    @Override
     public boolean intersectsRectangle(Rectangled other) {
         return minX < other.maxX && maxX > other.minX &&
                maxY > other.minY && minY < other.maxY;
@@ -339,11 +344,13 @@ public class Rectanglef implements Externalizable, Rectanglefc {
      *          the other rectangle
      * @return <code>true</code> iff both rectangles intersect; <code>false</code> otherwise
      */
+    @Override
     public boolean intersectsRectangle(Rectanglef other) {
         return minX < other.maxX && maxX > other.minX &&
                maxY > other.minY && minY < other.maxY;
     }
 
+    @Override
     public boolean intersectsRectangle(Rectanglei other) {
         return minX < other.maxX && maxX > other.minX &&
                maxY > other.minY && minY < other.maxY;
@@ -391,6 +398,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return intersection(other, this);
     }
 
+    @Override
     public Rectanglef intersection(Rectanglef other, Rectanglef dest) {
         dest.minX = Math.max(minX, other.minX);
         dest.minY = Math.max(minY, other.minY);
@@ -399,7 +407,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return dest.validate();
     }
 
-
+    @Override
     public Rectanglef intersection(Rectanglei other, Rectanglef dest) {
         dest.minX = Math.max(minX, other.minX);
         dest.minY = Math.max(minY, other.minY);
@@ -420,27 +428,12 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return dest.set(lengthX(), lengthY());
     }
 
-
-    /**
-     * Check if this rectangle contains the given <code>point</code>.
-     *
-     * @param point
-     *          the point to test
-     * @return <code>true</code> iff this rectangle contains the point; <code>false</code> otherwise
-     */
+    @Override
     public boolean containsPoint(Vector2fc point) {
         return containsPoint(point.x(), point.y());
     }
 
-    /**
-     * Check if this rectangle contains the given point <code>(x, y)</code>.
-     *
-     * @param x
-     *          the x coordinate of the point to check
-     * @param y
-     *          the y coordinate of the point to check
-     * @return <code>true</code> iff this rectangle contains the point; <code>false</code> otherwise
-     */
+    @Override
     public boolean containsPoint(float x, float y) {
         return x > minX && y > minY && x < maxX && y < maxY;
     }
@@ -456,7 +449,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return translate(xy.x(), xy.y(), this);
     }
 
-
+    @Override
     public Rectanglef translate(Vector2fc xy, Rectanglef dest) {
         return translate(xy.x(), xy.y(), dest);
     }
@@ -475,6 +468,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
     }
 
 
+    @Override
     public Rectanglef translate(float x, float y, Rectanglef dest) {
         dest.minX = minX + x;
         dest.minY = minY + y;
@@ -494,7 +488,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return scale(sf, sf);
     }
 
-
+    @Override
     public Rectanglef scale(float sf, Rectanglef dest) {
         return scale(sf, sf, dest);
     }
@@ -516,7 +510,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return scale(sf, sf, ax, ay);
     }
 
-
+    @Override
     public Rectanglef scale(float sf, float ax, float ay, Rectanglef dest) {
         return scale(sf, sf, ax, ay, dest);
     }
@@ -536,7 +530,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return scale(sf, anchor.x(), anchor.y());
     }
 
-
+    @Override
     public Rectanglef scale(float sf, Vector2fc anchor, Rectanglef dest) {
         return scale(sf, anchor.x(), anchor.y(), dest);
     }
@@ -554,6 +548,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return scale(sx, sy, 0f, 0f);
     }
 
+    @Override
     public Rectanglef scale(float sx, float sy, Rectanglef dest) {
         return scale(sx, sy, 0f, 0f, dest);
     }
@@ -598,6 +593,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return scale(sx, sy, anchor.x(), anchor.y());
     }
 
+    @Override
     public Rectanglef scale(float sx, float sy, float ax, float ay, Rectanglef dest) {
         dest.minX = (minX - ax) * sx + ax;
         dest.minY = (minY - ay) * sy + ay;
@@ -607,6 +603,7 @@ public class Rectanglef implements Externalizable, Rectanglefc {
     }
 
 
+    @Override
     public Rectanglef scale(float sx, float sy, Vector2fc anchor, Rectanglef dest) {
         return scale(sx, sy, anchor.x(), anchor.y(), dest);
     }

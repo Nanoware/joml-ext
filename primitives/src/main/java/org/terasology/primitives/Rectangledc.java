@@ -2,9 +2,7 @@ package org.terasology.primitives;
 
 import org.joml.Vector2d;
 import org.joml.Vector2dc;
-import org.joml.Vector2f;
 import org.joml.Vector2fc;
-import org.joml.Vector2ic;
 
 public interface Rectangledc {
 
@@ -39,6 +37,30 @@ public interface Rectangledc {
      */
     Vector2d getSize(Vector2d dest);
 
+    /**
+     * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in <code>dest</code>.
+     *
+     * @param x
+     *          the x coordinate of the point
+     * @param y
+     *          the y coordinate of the point
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    Rectangled union(double x, double y, Rectangled dest);
+
+    /**
+     * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in <code>dest</code>.
+     *
+     * @param p
+     *          the point
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    Rectangled union(Vector2dc p, Rectangled dest);
+
 
     /**
      * Check if this rectangle contains the given <code>rectangle</code>.
@@ -64,7 +86,27 @@ public interface Rectangledc {
      *          the rectangle to test
      * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
      */
-    boolean containsRectangle(Rectanglei rectangle);
+    boolean containsRectangle(Rectangleic rectangle);
+
+    /**
+     * Check if this rectangle contains the given <code>point</code>.
+     *
+     * @param point
+     *          the point to test
+     * @return <code>true</code> iff this rectangle contains the point; <code>false</code> otherwise
+     */
+    boolean containsPoint(Vector2dc point);
+
+    /**
+     * Check if this rectangle contains the given point <code>(x, y)</code>.
+     *
+     * @param x
+     *          the x coordinate of the point to check
+     * @param y
+     *          the y coordinate of the point to check
+     * @return <code>true</code> iff this rectangle contains the point; <code>false</code> otherwise
+     */
+    boolean containsPoint(double x, double y);
 
 
     /**
@@ -78,6 +120,16 @@ public interface Rectangledc {
      */
     Rectangled translate(Vector2dc xy, Rectangled dest);
 
+    /**
+     * Translate <code>this</code> by the given vector <code>xy</code> and store the result in <code>dest</code>.
+     *
+     * @param xy
+     *          the vector to translate by
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    Rectangled translate(Vector2fc xy, Rectangled dest);
 
     /**
      * Translate <code>this</code> by the vector <code>(x, y)</code> and store the result in <code>dest</code>.
@@ -273,6 +325,6 @@ public interface Rectangledc {
      *          will hold the result
      * @return dest
      */
-    Rectangled intersection(Rectanglei other, Rectangled dest);
+    Rectangled intersection(Rectangleic other, Rectangled dest);
 
 }

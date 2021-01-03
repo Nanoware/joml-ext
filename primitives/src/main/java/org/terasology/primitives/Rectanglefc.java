@@ -64,6 +64,26 @@ public interface Rectanglefc {
     boolean containsRectangle(Rectanglei rectangle);
 
     /**
+     * Check if this rectangle contains the given <code>point</code>.
+     *
+     * @param point
+     *          the point to test
+     * @return <code>true</code> iff this rectangle contains the point; <code>false</code> otherwise
+     */
+    boolean containsPoint(Vector2fc point);
+
+    /**
+     * Check if this rectangle contains the given point <code>(x, y)</code>.
+     *
+     * @param x
+     *          the x coordinate of the point to check
+     * @param y
+     *          the y coordinate of the point to check
+     * @return <code>true</code> iff this rectangle contains the point; <code>false</code> otherwise
+     */
+    boolean containsPoint(float x, float y);
+
+    /**
      * Translate <code>this</code> by the given vector <code>xy</code> and store the result in <code>dest</code>.
      *
      * @param xy
