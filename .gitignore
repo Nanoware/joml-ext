@@ -1,4 +1,5 @@
-# Derived from the Terasology .gitignore file
+# Derived from the Terasology .gitignore file. Gradle.properties may contain sensitive details
+gradle.properties
 
 # Ignore general
 *~

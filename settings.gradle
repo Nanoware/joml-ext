@@ -1,2 +1,2 @@
-rootProject.name = 'primatives'
-include 'primitives'
+rootProject.name = 'joml-ext'
+include 'joml-geom'
