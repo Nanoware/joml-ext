@@ -31,7 +31,7 @@ pipeline {
                 junit testResults: '**/build/test-results/test/*.xml',  allowEmptyResults: true
                 recordIssues tool: javaDoc()
                 //Note: Javadoc archiver only works for one directory :-(
-                step([$class: 'JavadocArchiver', javadocDir: 'joml-geom/build/docs/javadoc', keepAll: false])
+                step([$class: 'JavadocArchiver', javadocDir: 'joml-geometry/build/docs/javadoc', keepAll: false])
                 //recordIssues tool: checkStyle(pattern: '**/build/reports/checkstyle/*.xml')
                 //recordIssues tool: spotBugs(pattern: '**/build/reports/spotbugs/main/*.xml', useRankAsPriority: true)
                 //recordIssues tool: pmdParser(pattern: '**/build/reports/pmd/*.xml')
