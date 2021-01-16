@@ -18,7 +18,7 @@ public class RectangleiTest {
         Rectanglei rect = new Rectanglei(0, 0, 3, 3);
 
         assertTrue(rect.isValid());
-        assertFalse(rect.containsPoint(new Vector2i(0, 0)));
+        assertTrue(rect.containsPoint(new Vector2i(0, 0)));
         assertTrue(rect.containsPoint(new Vector2i(1, 1)));
         assertFalse(rect.containsPoint(new Vector2i(-1, -1)));
         assertFalse(rect.containsPoint(new Vector2i(4, 4)));
@@ -75,9 +75,9 @@ public class RectangleiTest {
 
         assertTrue(center.isValid());
 
-        assertFalse(center.containsPoint(0, 0));
-        assertFalse(center.containsPoint(1, 0));
-        assertFalse(center.containsPoint(0, 1));
+        assertTrue(center.containsPoint(0, 0));
+        assertTrue(center.containsPoint(1, 0));
+        assertTrue(center.containsPoint(0, 1));
         assertTrue(center.containsPoint(1, 1));
     }
     @Test
