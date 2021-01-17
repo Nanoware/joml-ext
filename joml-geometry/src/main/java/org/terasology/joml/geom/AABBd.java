@@ -130,6 +130,26 @@ public class AABBd implements Externalizable, AABBdc {
         this.maxZ = maxZ;
     }
 
+    /**
+     *
+     * @param minX the x coordinate of the minimum corner
+     * @param minY the y coordinate of the minimum corner
+     * @param minZ the z coordinate of the minimum corner
+     * @param maxX the x coordinate of the maximum corner
+     * @param maxY the y coordinate of the maximum corner
+     * @param maxZ the z coordinate of the maximum corner
+     * @return this
+     */
+    public AABBd set(double minX, double minY, double minZ, double maxX, double maxY, double maxZ){
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
+        return this;
+    }
+
     public double minX() {
         return minX;
     }
@@ -279,6 +299,40 @@ public class AABBd implements Externalizable, AABBdc {
 
     public Vector3f center(Vector3f dest) {
         return dest.set(minX + ((maxX - minX) / 2.0f), minY + ((maxY - minY) / 2.0f), minZ + ((maxZ - minZ) / 2.0f));
+    }
+
+    @Override
+    public AABBd expand(double dx, double dy, double dz, AABBd dest) {
+        return dest.set(
+            minX - dx,
+            minY - dy,
+            minZ - dz,
+            maxX + dx,
+            maxY + dy,
+            maxZ + dz
+        );
+    }
+
+    public AABBd expand(double dx, double dy, double dz) {
+        return expand(dx, dy, dz, this);
+    }
+
+    @Override
+    public AABBd expand(Vector3fc extent, AABBd dest) {
+        return expand(extent.x(), extent.y(), extent.z(), dest);
+    }
+
+    public AABBd expand(Vector3fc extent) {
+        return expand(extent, this);
+    }
+
+    @Override
+    public AABBd expand(Vector3dc extent, AABBd dest) {
+        return expand(extent.x(), extent.y(), extent.z(), dest);
+    }
+
+    public AABBd expand(Vector3dc extent) {
+        return expand(extent, this);
     }
 
     public Vector3d extent(Vector3d dest) {

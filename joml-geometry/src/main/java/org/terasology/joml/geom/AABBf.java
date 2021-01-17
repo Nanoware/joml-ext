@@ -8,6 +8,7 @@ import org.joml.Options;
 import org.joml.Runtime;
 import org.joml.Vector2f;
 import org.joml.Vector3d;
+import org.joml.Vector3dc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
@@ -126,6 +127,26 @@ public class AABBf implements Externalizable, AABBfc {
         this.maxX = source.maxX();
         this.maxY = source.maxY();
         this.maxZ = source.maxZ();
+        return this;
+    }
+
+    /**
+     *
+     * @param minX the x coordinate of the minimum corner
+     * @param minY the y coordinate of the minimum corner
+     * @param minZ the z coordinate of the minimum corner
+     * @param maxX the x coordinate of the maximum corner
+     * @param maxY the y coordinate of the maximum corner
+     * @param maxZ the z coordinate of the maximum corner
+     * @return this
+     */
+    public AABBf set(float minX, float minY, float minZ, float maxX, float maxY, float maxZ){
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
         return this;
     }
 
@@ -260,6 +281,52 @@ public class AABBf implements Externalizable, AABBfc {
 
     public Vector3d center(Vector3d dest) {
         return dest.set(minX + ((maxX - minX) / 2.0), minY + ((maxY - minY) / 2.0), minZ + ((maxZ - minZ) / 2.0));
+    }
+
+    @Override
+    public AABBf expand(float dx, float dy, float dz, AABBf dest) {
+        return dest.set(
+            minX - dx,
+            minY - dy,
+            minZ - dz,
+            maxX + dx,
+            maxY + dy,
+            maxZ + dz
+        );
+    }
+
+    public AABBf expand(float dx, float dy, float dz) {
+        return expand(dx, dy, dz, this);
+    }
+
+    @Override
+    public AABBf expand(Vector3fc extent, AABBf dest) {
+        return expand(extent.x(), extent.y(), extent.z(), dest);
+    }
+
+    /**
+     * expand the aabb by components of extent
+     *
+     * @param extent the components to expand this aabb by
+     * @return this
+     */
+    public AABBf expand(Vector3fc extent) {
+        return expand(extent, this);
+    }
+
+    @Override
+    public AABBf expand(Vector3dc extent, AABBf dest) {
+        return expand((float) extent.x(), (float) extent.y(), (float) extent.z(), dest);
+    }
+
+    /**
+     * expand the aabb by components of extent
+     *
+     * @param extent the components to extend this aabb by
+     * @return this
+     */
+    public AABBf expand(Vector3dc extent) {
+        return expand(extent, this);
     }
 
     public Vector3d extent(Vector3d dest) {

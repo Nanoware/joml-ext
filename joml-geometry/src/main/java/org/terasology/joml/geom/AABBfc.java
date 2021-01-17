@@ -5,14 +5,15 @@ package org.terasology.joml.geom;
 import org.joml.Matrix4fc;
 import org.joml.Vector2f;
 import org.joml.Vector3d;
+import org.joml.Vector3dc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 import java.text.NumberFormat;
 
 /**
- * Interface to a read-only view of an axis-aligned box defined via the minimum
- * and maximum corner coordinates as single-precision floats.
+ * Interface to a read-only view of an axis-aligned box defined via the minimum and maximum corner coordinates as
+ * single-precision floats.
  */
 public interface AABBfc {
 
@@ -56,8 +57,7 @@ public interface AABBfc {
     /**
      * Get the maximum corner coordinate of the given component.
      *
-     * @param component
-     *          the component, within <code>[0..2]</code>
+     * @param component the component, within <code>[0..2]</code>
      * @return the maximum coordinate
      * @throws IllegalArgumentException if <code>component</code> is not within <code>[0..2]</code>
      */
@@ -66,8 +66,7 @@ public interface AABBfc {
     /**
      * Get the minimum corner coordinate of the given component.
      *
-     * @param component
-     *          the component, within <code>[0..2]</code>
+     * @param component the component, within <code>[0..2]</code>
      * @return the maximum coordinate
      * @throws IllegalArgumentException if <code>component</code> is not within <code>[0..2]</code>
      */
@@ -90,6 +89,41 @@ public interface AABBfc {
     Vector3d center(Vector3d dest);
 
     /**
+     * Expand this aabb by adding the given {@code extents} for each face of the region.
+     * <p>
+     * Note that the resulting AABB might be {@link #isValid() invalid} after the operation.
+     *
+     * @param dx the amount to extend this aabb by the x axis in both directions
+     * @param dy the amount to extend this aabb by the y axis in both directions
+     * @param dz the amount to extend this aabb by the z axis in both directions
+     * @param dest will hold the result
+     * @return {@code dest} (after modification)
+     */
+    AABBf expand(float dx, float dy, float dz, AABBf dest);
+
+    /**
+     * Expand this aabb by adding the given {@code extents} for each face of the region.
+     * <p>
+     * Note that the resulting AABB might be {@link #isValid() invalid} after the operation.
+     *
+     * @param extent the amount of to extend this aabb by the x, y, z axis
+     * @param dest will hold the result
+     * @return {@code dest} (after modification)
+     */
+    AABBf expand(Vector3fc extent, AABBf dest);
+
+    /**
+     * Expand this aabb by adding the given {@code extents} for each face of the region.
+     * <p>
+     * Note that the resulting AABB might be {@link #isValid() invalid} after the operation.
+     *
+     * @param extent the amount of to extend this aabb by the x, y, z axis
+     * @param dest will hold the result
+     * @return {@code dest} (after modification)
+     */
+    AABBf expand(Vector3dc extent, AABBf dest);
+
+    /**
      * Extent of the aabb (max - min) / 2.0.
      *
      * @param dest will hold the result
@@ -106,27 +140,23 @@ public interface AABBfc {
     Vector3f extent(Vector3f dest);
 
     /**
-     * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in <code>dest</code>.
+     * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in
+     * <code>dest</code>.
      *
-     * @param x
-     *          the x coordinate of the point
-     * @param y
-     *          the y coordinate of the point
-     * @param z
-     *          the z coordinate of the point
-     * @param dest
-     *          will hold the result
+     * @param x the x coordinate of the point
+     * @param y the y coordinate of the point
+     * @param z the z coordinate of the point
+     * @param dest will hold the result
      * @return dest
      */
     AABBf union(float x, float y, float z, AABBf dest);
 
     /**
-     * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in <code>dest</code>.
+     * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in
+     * <code>dest</code>.
      *
-     * @param p
-     *          the point
-     * @param dest
-     *          will hold the result
+     * @param p the point
+     * @param dest will hold the result
      * @return dest
      */
     AABBf union(Vector3fc p, AABBf dest);
@@ -134,10 +164,8 @@ public interface AABBfc {
     /**
      * Compute the union of <code>this</code> and <code>other</code> and store the result in <code>dest</code>.
      *
-     * @param other
-     *          the other {@link AABBf}
-     * @param dest
-     *          will hold the result
+     * @param other the other {@link AABBf}
+     * @param dest will hold the result
      * @return dest
      */
     AABBf union(AABBf other, AABBf dest);
@@ -145,10 +173,8 @@ public interface AABBfc {
     /**
      * Translate <code>this</code> by the given vector <code>xyz</code> and store the result in <code>dest</code>.
      *
-     * @param xyz
-     *          the vector to translate by
-     * @param dest
-     *          will hold the result
+     * @param xyz the vector to translate by
+     * @param dest will hold the result
      * @return dest
      */
     AABBf translate(Vector3fc xyz, AABBf dest);
@@ -156,14 +182,10 @@ public interface AABBfc {
     /**
      * Translate <code>this</code> by the vector <code>(x, y, z)</code> and store the result in <code>dest</code>.
      *
-     * @param x
-     *          the x coordinate to translate by
-     * @param y
-     *          the y coordinate to translate by
-     * @param z
-     *          the z coordinate to translate by
-     * @param dest
-     *          will hold the result
+     * @param x the x coordinate to translate by
+     * @param y the y coordinate to translate by
+     * @param z the z coordinate to translate by
+     * @param dest will hold the result
      * @return dest
      */
     AABBf translate(float x, float y, float z, AABBf dest);
@@ -171,14 +193,11 @@ public interface AABBfc {
     /**
      * Compute the AABB of intersection between <code>this</code> and the given AABB.
      * <p>
-     * If the two AABBs do not intersect, then the minimum coordinates of <code>this</code>
-     * will have a value of {@link Float#POSITIVE_INFINITY} and the maximum coordinates will have a value of
-     * {@link Float#NEGATIVE_INFINITY}.
+     * If the two AABBs do not intersect, then the minimum coordinates of <code>this</code> will have a value of {@link
+     * Float#POSITIVE_INFINITY} and the maximum coordinates will have a value of {@link Float#NEGATIVE_INFINITY}.
      *
-     * @param other
-     *           the other AABB
-     * @param dest
-     *          will hold the result
+     * @param other the other AABB
+     * @param dest will hold the result
      * @return dest
      */
     AABBf intersection(AABBfc other, AABBf dest);
@@ -186,8 +205,7 @@ public interface AABBfc {
     /**
      * Check if this AABB contains the given <code>AABB</code>.
      *
-     * @param aabb
-     *          the AABB to test
+     * @param aabb the AABB to test
      * @return <code>true</code> iff this AABB contains the AABB; <code>false</code> otherwise
      */
     boolean containsAABB(AABBdc aabb);
@@ -195,8 +213,7 @@ public interface AABBfc {
     /**
      * Check if this AABB contains the given <code>AABB</code>.
      *
-     * @param aabb
-     *          the AABB to test
+     * @param aabb the AABB to test
      * @return <code>true</code> iff this AABB contains the AABB; <code>false</code> otherwise
      */
     boolean containsAABB(AABBfc aabb);
@@ -204,8 +221,7 @@ public interface AABBfc {
     /**
      * Check if this AABB contains the given <code>AABB</code>.
      *
-     * @param aabb
-     *          the AABB to test
+     * @param aabb the AABB to test
      * @return <code>true</code> iff this AABB contains the AABB; <code>false</code> otherwise
      */
     boolean containsAABB(AABBic aabb);
@@ -213,12 +229,9 @@ public interface AABBfc {
     /**
      * Test whether the point <code>(x, y, z)</code> lies inside this AABB.
      *
-     * @param x
-     *          the x coordinate of the point
-     * @param y
-     *          the y coordinate of the point
-     * @param z
-     *          the z coordinate of the point
+     * @param x the x coordinate of the point
+     * @param y the y coordinate of the point
+     * @param z the z coordinate of the point
      * @return <code>true</code> iff the given point lies inside this AABB; <code>false</code> otherwise
      */
     boolean containsPoint(float x, float y, float z);
@@ -226,8 +239,7 @@ public interface AABBfc {
     /**
      * Test whether the given point lies inside this AABB.
      *
-     * @param point
-     *          the coordinates of the point
+     * @param point the coordinates of the point
      * @return <code>true</code> iff the given point lies inside this AABB; <code>false</code> otherwise
      */
     boolean containsPoint(Vector3fc point);
@@ -235,16 +247,14 @@ public interface AABBfc {
     /**
      * Test whether the plane given via its plane equation <code>a*x + b*y + c*z + d = 0</code> intersects this AABB.
      * <p>
-     * Reference: <a href="http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/">http://www.lighthouse3d.com</a> ("Geometric Approach - Testing Boxes II")
+     * Reference:
+     * <a href="http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/">http://www.lighthouse3d.com</a>
+     * ("Geometric Approach - Testing Boxes II")
      *
-     * @param a
-     *          the x factor in the plane equation
-     * @param b
-     *          the y factor in the plane equation
-     * @param c
-     *          the z factor in the plane equation
-     * @param d
-     *          the constant in the plane equation
+     * @param a the x factor in the plane equation
+     * @param b the y factor in the plane equation
+     * @param c the z factor in the plane equation
+     * @param d the constant in the plane equation
      * @return <code>true</code> iff the plane intersects this AABB; <code>false</code> otherwise
      */
     boolean intersectsPlane(float a, float b, float c, float d);
@@ -252,10 +262,11 @@ public interface AABBfc {
     /**
      * Test whether the given plane intersects this AABB.
      * <p>
-     * Reference: <a href="http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/">http://www.lighthouse3d.com</a> ("Geometric Approach - Testing Boxes II")
+     * Reference:
+     * <a href="http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/">http://www.lighthouse3d.com</a>
+     * ("Geometric Approach - Testing Boxes II")
      *
-     * @param plane
-     *          the plane
+     * @param plane the plane
      * @return <code>true</code> iff the plane intersects this AABB; <code>false</code> otherwise
      */
     boolean intersectsPlane(Planef plane);
@@ -263,8 +274,7 @@ public interface AABBfc {
     /**
      * Test whether <code>this</code> and <code>other</code> intersect.
      *
-     * @param other
-     *          the other AABB
+     * @param other the other AABB
      * @return <code>true</code> iff both AABBs intersect; <code>false</code> otherwise
      */
     boolean intersectsAABB(AABBfc other);
@@ -273,16 +283,13 @@ public interface AABBfc {
      * Test whether this AABB intersects the given sphere with equation
      * <code>(x - centerX)^2 + (y - centerY)^2 + (z - centerZ)^2 - radiusSquared = 0</code>.
      * <p>
-     * Reference: <a href="http://stackoverflow.com/questions/4578967/cube-sphere-intersection-test#answer-4579069">http://stackoverflow.com</a>
+     * Reference:
+     * <a href="http://stackoverflow.com/questions/4578967/cube-sphere-intersection-test#answer-4579069">http://stackoverflow.com</a>
      *
-     * @param centerX
-     *          the x coordinate of the center of the sphere
-     * @param centerY
-     *          the y coordinate of the center of the sphere
-     * @param centerZ
-     *          the z coordinate of the center of the sphere
-     * @param radiusSquared
-     *          the square radius of the sphere
+     * @param centerX the x coordinate of the center of the sphere
+     * @param centerY the y coordinate of the center of the sphere
+     * @param centerZ the z coordinate of the center of the sphere
+     * @param radiusSquared the square radius of the sphere
      * @return <code>true</code> iff this AABB and the sphere intersect; <code>false</code> otherwise
      */
     boolean intersectsSphere(float centerX, float centerY, float centerZ, float radiusSquared);
@@ -290,34 +297,28 @@ public interface AABBfc {
     /**
      * Test whether this AABB intersects the given sphere.
      * <p>
-     * Reference: <a href="http://stackoverflow.com/questions/4578967/cube-sphere-intersection-test#answer-4579069">http://stackoverflow.com</a>
+     * Reference:
+     * <a href="http://stackoverflow.com/questions/4578967/cube-sphere-intersection-test#answer-4579069">http://stackoverflow.com</a>
      *
-     * @param sphere
-     *          the sphere
+     * @param sphere the sphere
      * @return <code>true</code> iff this AABB and the sphere intersect; <code>false</code> otherwise
      */
     boolean intersectsSphere(Spheref sphere);
 
     /**
-     * Test whether the given ray with the origin <code>(originX, originY, originZ)</code> and direction <code>(dirX, dirY, dirZ)</code>
-     * intersects this AABB.
+     * Test whether the given ray with the origin <code>(originX, originY, originZ)</code> and direction <code>(dirX,
+     * dirY, dirZ)</code> intersects this AABB.
      * <p>
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
      *
-     * @param originX
-     *          the x coordinate of the ray's origin
-     * @param originY
-     *          the y coordinate of the ray's origin
-     * @param originZ
-     *          the z coordinate of the ray's origin
-     * @param dirX
-     *          the x coordinate of the ray's direction
-     * @param dirY
-     *          the y coordinate of the ray's direction
-     * @param dirZ
-     *          the z coordinate of the ray's direction
+     * @param originX the x coordinate of the ray's origin
+     * @param originY the y coordinate of the ray's origin
+     * @param originZ the z coordinate of the ray's origin
+     * @param dirX the x coordinate of the ray's direction
+     * @param dirY the y coordinate of the ray's direction
+     * @param dirZ the z coordinate of the ray's direction
      * @return <code>true</code> if this AABB and the ray intersect; <code>false</code> otherwise
      */
     boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ);
@@ -329,134 +330,118 @@ public interface AABBfc {
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
      *
-     * @param ray
-     *          the ray
+     * @param ray the ray
      * @return <code>true</code> if this AABB and the ray intersect; <code>false</code> otherwise
      */
     boolean intersectsRay(Rayf ray);
 
 
-
     /**
-     * Determine whether the given ray with the origin <code>(originX, originY, originZ)</code> and direction <code>(dirX, dirY, dirZ)</code>
-     * intersects this AABB, and return the values of the parameter <i>t</i> in the ray equation
+     * Determine whether the given ray with the origin <code>(originX, originY, originZ)</code> and direction
+     * <code>(dirX, dirY, dirZ)</code> intersects this AABB, and return the values of the parameter <i>t</i> in the ray
+     * equation
      * <i>p(t) = origin + t * dir</i> of the near and far point of intersection.
      * <p>
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
      *
-     * @param originX
-     *              the x coordinate of the ray's origin
-     * @param originY
-     *              the y coordinate of the ray's origin
-     * @param originZ
-     *              the z coordinate of the ray's origin
-     * @param dirX
-     *              the x coordinate of the ray's direction
-     * @param dirY
-     *              the y coordinate of the ray's direction
-     * @param dirZ
-     *              the z coordinate of the ray's direction
-     * @param result
-     *              a vector which will hold the resulting values of the parameter
-     *              <i>t</i> in the ray equation <i>p(t) = origin + t * dir</i> of the near and far point of intersection
-     *              iff the ray intersects this AABB
+     * @param originX the x coordinate of the ray's origin
+     * @param originY the y coordinate of the ray's origin
+     * @param originZ the z coordinate of the ray's origin
+     * @param dirX the x coordinate of the ray's direction
+     * @param dirY the y coordinate of the ray's direction
+     * @param dirZ the z coordinate of the ray's direction
+     * @param result a vector which will hold the resulting values of the parameter
+     *         <i>t</i> in the ray equation <i>p(t) = origin + t * dir</i> of the near and far point of intersection
+     *         iff the ray intersects this AABB
      * @return <code>true</code> if the given ray intersects this AABB; <code>false</code> otherwise
      */
-    boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ, Vector2f result);
+    boolean intersectsRay(float originX, float originY, float originZ, float dirX, float dirY, float dirZ,
+                          Vector2f result);
 
 
     /**
-     * Determine whether the given ray intersects this AABB, and return the values of the parameter <i>t</i> in the ray equation
+     * Determine whether the given ray intersects this AABB, and return the values of the parameter <i>t</i> in the ray
+     * equation
      * <i>p(t) = origin + t * dir</i> of the near and far point of intersection.
      * <p>
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
      *
-     * @param ray
-     *              the ray
-     * @param result
-     *              a vector which will hold the resulting values of the parameter
-     *              <i>t</i> in the ray equation <i>p(t) = origin + t * dir</i> of the near and far point of intersection
-     *              iff the ray intersects this AABB
+     * @param ray the ray
+     * @param result a vector which will hold the resulting values of the parameter
+     *         <i>t</i> in the ray equation <i>p(t) = origin + t * dir</i> of the near and far point of intersection
+     *         iff the ray intersects this AABB
      * @return <code>true</code> if the given ray intersects this AABB; <code>false</code> otherwise
      */
     boolean intersectsRay(Rayf ray, Vector2f result);
 
     /**
-     * Determine whether the undirected line segment with the end points <code>(p0X, p0Y, p0Z)</code> and <code>(p1X, p1Y, p1Z)</code>
-     * intersects this AABB, and return the values of the parameter <i>t</i> in the ray equation
+     * Determine whether the undirected line segment with the end points <code>(p0X, p0Y, p0Z)</code> and <code>(p1X,
+     * p1Y, p1Z)</code> intersects this AABB, and return the values of the parameter <i>t</i> in the ray equation
      * <i>p(t) = origin + p0 * (p1 - p0)</i> of the near and far point of intersection.
      * <p>
      * This method returns <code>true</code> for a line segment whose either end point lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
      *
-     * @param p0X
-     *              the x coordinate of the line segment's first end point
-     * @param p0Y
-     *              the y coordinate of the line segment's first end point
-     * @param p0Z
-     *              the z coordinate of the line segment's first end point
-     * @param p1X
-     *              the x coordinate of the line segment's second end point
-     * @param p1Y
-     *              the y coordinate of the line segment's second end point
-     * @param p1Z
-     *              the z coordinate of the line segment's second end point
-     * @param result
-     *              a vector which will hold the resulting values of the parameter
-     *              <i>t</i> in the ray equation <i>p(t) = p0 + t * (p1 - p0)</i> of the near and far point of intersection
-     *              iff the line segment intersects this AABB
-     * @return {@link Intersectionf#INSIDE} if the line segment lies completely inside of this AABB; or
-     *         {@link Intersectionf#OUTSIDE} if the line segment lies completely outside of this AABB; or
-     *         {@link Intersectionf#ONE_INTERSECTION} if one of the end points of the line segment lies inside of this AABB; or
-     *         {@link Intersectionf#TWO_INTERSECTION} if the line segment intersects two sides of this AABB or lies on an edge or a side of this AABB
+     * @param p0X the x coordinate of the line segment's first end point
+     * @param p0Y the y coordinate of the line segment's first end point
+     * @param p0Z the z coordinate of the line segment's first end point
+     * @param p1X the x coordinate of the line segment's second end point
+     * @param p1Y the y coordinate of the line segment's second end point
+     * @param p1Z the z coordinate of the line segment's second end point
+     * @param result a vector which will hold the resulting values of the parameter
+     *         <i>t</i> in the ray equation <i>p(t) = p0 + t * (p1 - p0)</i> of the near and far point of intersection
+     *         iff the line segment intersects this AABB
+     * @return {@link Intersectionf#INSIDE} if the line segment lies completely inside of this AABB; or {@link
+     *         Intersectionf#OUTSIDE} if the line segment lies completely outside of this AABB; or {@link
+     *         Intersectionf#ONE_INTERSECTION} if one of the end points of the line segment lies inside of this AABB; or
+     *         {@link Intersectionf#TWO_INTERSECTION} if the line segment intersects two sides of this AABB or lies on
+     *         an edge or a side of this AABB
      */
     int intersectsLineSegment(float p0X, float p0Y, float p0Z, float p1X, float p1Y, float p1Z, Vector2f result);
 
     /**
-     * Determine whether the given undirected line segment intersects this AABB, and return the values of the parameter <i>t</i> in the ray equation
+     * Determine whether the given undirected line segment intersects this AABB, and return the values of the parameter
+     * <i>t</i> in the ray equation
      * <i>p(t) = origin + p0 * (p1 - p0)</i> of the near and far point of intersection.
      * <p>
      * This method returns <code>true</code> for a line segment whose either end point lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
      *
-     * @param lineSegment
-     *              the line segment
-     * @param result
-     *              a vector which will hold the resulting values of the parameter
-     *              <i>t</i> in the ray equation <i>p(t) = p0 + t * (p1 - p0)</i> of the near and far point of intersection
-     *              iff the line segment intersects this AABB
-     * @return {@link Intersectionf#INSIDE} if the line segment lies completely inside of this AABB; or
-     *         {@link Intersectionf#OUTSIDE} if the line segment lies completely outside of this AABB; or
-     *         {@link Intersectionf#ONE_INTERSECTION} if one of the end points of the line segment lies inside of this AABB; or
-     *         {@link Intersectionf#TWO_INTERSECTION} if the line segment intersects two sides of this AABB or lies on an edge or a side of this AABB
+     * @param lineSegment the line segment
+     * @param result a vector which will hold the resulting values of the parameter
+     *         <i>t</i> in the ray equation <i>p(t) = p0 + t * (p1 - p0)</i> of the near and far point of intersection
+     *         iff the line segment intersects this AABB
+     * @return {@link Intersectionf#INSIDE} if the line segment lies completely inside of this AABB; or {@link
+     *         Intersectionf#OUTSIDE} if the line segment lies completely outside of this AABB; or {@link
+     *         Intersectionf#ONE_INTERSECTION} if one of the end points of the line segment lies inside of this AABB; or
+     *         {@link Intersectionf#TWO_INTERSECTION} if the line segment intersects two sides of this AABB or lies on
+     *         an edge or a side of this AABB
      */
     int intersectsLineSegment(LineSegmentf lineSegment, Vector2f result);
 
     /**
-     * Apply the given {@link Matrix4fc#isAffine() affine} transformation to this
-     * {@link AABBf} and store the resulting AABB into <code>dest</code>.
+     * Apply the given {@link Matrix4fc#isAffine() affine} transformation to this {@link AABBf} and store the resulting
+     * AABB into <code>dest</code>.
      * <p>
      * The matrix in <code>m</code> <i>must</i> be {@link Matrix4fc#isAffine() affine}.
      *
-     * @param m
-     *          the affine transformation matrix
-     * @param dest
-     *          will hold the result
+     * @param m the affine transformation matrix
+     * @param dest will hold the result
      * @return dest
      */
     AABBf transform(Matrix4fc m, AABBf dest);
 
     /**
-     * Return a string representation of this AABB by formatting the vector components with the given {@link NumberFormat}.
+     * Return a string representation of this AABB by formatting the vector components with the given {@link
+     * NumberFormat}.
      *
-     * @param formatter
-     *          the {@link NumberFormat} used to format the vector components with
+     * @param formatter the {@link NumberFormat} used to format the vector components with
      * @return the string representation
      */
     String toString(NumberFormat formatter);
