@@ -7,12 +7,12 @@ import org.joml.Matrix3f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.terasology.joml.test.VectorAssert.assertEquals;
 
 /**
  * Tests for the {@link Intersectionf} class.
@@ -52,7 +52,7 @@ public class IntersectionfTest {
         float t = Intersectionf.intersectRayPlane(origin, dir, point, normal, 0.0f);
         assertTrue(t >= 0.0f);
         Vector3f intersection = new Vector3f(dir).mul(t).add(origin);
-        TestUtil.assertVector3fEquals(new Vector3f(2, 2, 2), intersection, 1E-6f);
+        assertEquals(new Vector3f(2, 2, 2), intersection, 1E-6f);
         normal = new Vector3f(1, 1, 1);
         t = Intersectionf.intersectRayPlane(origin, dir, point, normal, 0.0f);
         assertEquals(-1.0f, t, 1E-6f);
@@ -83,7 +83,7 @@ public class IntersectionfTest {
         assertTrue(Intersectionf.intersectSphereSphere(0, 0, 0, 1, 0.5f, 0, 0, 1, res));
         // intersection point is (0.25, 0, 0) <- middle between both spheres with equal
         // radii
-        TestUtil.assertVector3fEquals(new Vector3f(0.25f, 0, 0), new Vector3f(res.x, res.y, res.z), 1E-6f);
+        assertEquals(new Vector3f(0.25f, 0, 0), new Vector3f(res.x, res.y, res.z), 1E-6f);
         // cos(a) = adjside/hyp
         // cos(a) * hyp = adjside
         // acos(cos(a) * hyp) = acos(adjside)
@@ -145,21 +145,21 @@ public class IntersectionfTest {
     public static void testRayAar() {
         Vector2f p = new Vector2f();
         assertEquals(Intersectionf.AAR_SIDE_MINX, Intersectionf.intersectRayAar(-3, 0, 1, 0, -1, -1, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(-1, 0), new Vector2f(-3 + p.x * 1, 0 + p.x * 0), 1E-6f);
+        assertEquals(new Vector2f(-1, 0), new Vector2f(-3 + p.x * 1, 0 + p.x * 0), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MAXX, Intersectionf.intersectRayAar(3, 0, -1, 0, -1, -1, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 0), new Vector2f(3 + p.x * -1, 0 + p.x * 0), 1E-6f);
+        assertEquals(new Vector2f(1, 0), new Vector2f(3 + p.x * -1, 0 + p.x * 0), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MINY, Intersectionf.intersectRayAar(0, -2, 0, 1, -1, -1, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, -1), new Vector2f(0 + p.x * 0, -2 + p.x * 1), 1E-6f);
+        assertEquals(new Vector2f(0, -1), new Vector2f(0 + p.x * 0, -2 + p.x * 1), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MAXY, Intersectionf.intersectRayAar(0, 2, 0, -1, -1, -1, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), new Vector2f(0 + p.x * 0, 2 + p.x * -1), 1E-6f);
+        assertEquals(new Vector2f(0, 1), new Vector2f(0 + p.x * 0, 2 + p.x * -1), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MINX, Intersectionf.intersectRayAar(0, 0, 0, -1, 0, -1, 1, 0, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 0), new Vector2f(0 + p.x * 0, 0 + p.x * -1), 1E-6f);
+        assertEquals(new Vector2f(0, 0), new Vector2f(0 + p.x * 0, 0 + p.x * -1), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MINX, Intersectionf.intersectRayAar(0, 0, 0, 1, 0, 1, 1, 2, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), new Vector2f(0 + p.x * 0, 0 + p.x * 1), 1E-6f);
+        assertEquals(new Vector2f(0, 1), new Vector2f(0 + p.x * 0, 0 + p.x * 1), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MINY, Intersectionf.intersectRayAar(0, 0, -1, 0, -1, 0, 0, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 0), new Vector2f(0 + p.x * -1, 0 + p.x * 0), 1E-6f);
+        assertEquals(new Vector2f(0, 0), new Vector2f(0 + p.x * -1, 0 + p.x * 0), 1E-6f);
         assertEquals(Intersectionf.AAR_SIDE_MINX, Intersectionf.intersectRayAar(0, 0, 1, 0, 1, 0, 2, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 0), new Vector2f(0 + p.x * 1, 0 + p.x * 0), 1E-6f);
+        assertEquals(new Vector2f(1, 0), new Vector2f(0 + p.x * 1, 0 + p.x * 0), 1E-6f);
     }
 
     @Test
@@ -180,69 +180,69 @@ public class IntersectionfTest {
         Vector2f p = new Vector2f();
         float[] verticesXY = { 0, 0, 1, 0, 1, 1, 0, 1 };
         assertEquals(3, Intersectionf.intersectPolygonRay(verticesXY, -1, 0.5f, 1, 0, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 0.5f), p, 1E-6f);
+        assertEquals(new Vector2f(0, 0.5f), p, 1E-6f);
         assertEquals(0, Intersectionf.intersectPolygonRay(verticesXY, 0.1f, -0.5f, 0, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.1f, 0), p, 1E-6f);
+        assertEquals(new Vector2f(0.1f, 0), p, 1E-6f);
         assertEquals(-1, Intersectionf.intersectPolygonRay(verticesXY, 0.1f, -1.1f, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.1f, 0), p, 1E-6f);
+        assertEquals(new Vector2f(0.1f, 0), p, 1E-6f);
         assertEquals(-1, Intersectionf.intersectPolygonRay(verticesXY, 1.1f, 0f, -1, -1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.1f, 0), p, 1E-6f);
+        assertEquals(new Vector2f(0.1f, 0), p, 1E-6f);
         assertEquals(-1, Intersectionf.intersectPolygonRay(verticesXY, 1.1f, 1, 0, -1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.1f, 0), p, 1E-6f);
+        assertEquals(new Vector2f(0.1f, 0), p, 1E-6f);
         assertEquals(-1, Intersectionf.intersectPolygonRay(verticesXY, -0.1f, 0, 1, -1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.1f, 0), p, 1E-6f);
+        assertEquals(new Vector2f(0.1f, 0), p, 1E-6f);
     }
 
     @Test
     public static void testLineSegmentAar() {
         Vector2f p = new Vector2f();
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, 0.5f, -1, 1.5f, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.5f, 0.5f), p, 1E-6f);
+        assertEquals(new Vector2f(0.5f, 0.5f), p, 1E-6f);
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAar(1, 0, 0, 0, 0.5f, -1, 1.5f, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.5f, 0.5f), p, 1E-6f);
+        assertEquals(new Vector2f(0.5f, 0.5f), p, 1E-6f);
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAar(1, 0, 2, 0, 0, -1, 2, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 1), p, 1E-6f);
+        assertEquals(new Vector2f(1, 1), p, 1E-6f);
         assertEquals(Intersectionf.INSIDE, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, -0.5f, -1, 1.5f, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(-0.5f, 1.5f), p, 1E-6f);
+        assertEquals(new Vector2f(-0.5f, 1.5f), p, 1E-6f);
         assertEquals(Intersectionf.INSIDE, Intersectionf.intersectLineSegmentAar(1, 0, 0, 0, -0.5f, -1, 1.5f, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(-0.5f, 1.5f), p, 1E-6f);
+        assertEquals(new Vector2f(-0.5f, 1.5f), p, 1E-6f);
         assertEquals(Intersectionf.OUTSIDE, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, 1.5f, -1, 2.5f, 1, p));
         assertEquals(Intersectionf.OUTSIDE, Intersectionf.intersectLineSegmentAar(1, 0, 0, 0, 1.5f, -1, 2.5f, 1, p));
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, 0.5f, -1, 0.75f, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.5f, 0.75f), p, 1E-6f);
+        assertEquals(new Vector2f(0.5f, 0.75f), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(1, 0, 0, 0, 0.5f, -1, 0.75f, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.25f, 0.5f), p, 1E-6f);
+        assertEquals(new Vector2f(0.25f, 0.5f), p, 1E-6f);
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, 1, -1, 2, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 1), p, 1E-6f);
+        assertEquals(new Vector2f(1, 1), p, 1E-6f);
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, -1, 0, -2, -1, -1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 1), p, 1E-6f);
+        assertEquals(new Vector2f(1, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, 0.5f, -1, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0.5f, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0.5f, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 0, 1, -0.5f, 0, 0, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 1, 0, 0, 0, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(1, 0, 0, 0, 0, 0, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 1, 0, 0, 0, 0, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, 0, 0, 1, 0, 0, 1, 1, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, -1, 0, 0, -1, -1, 0, 0, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAar(0, -1, 0, 1, -1, -1, 0, 0, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 0.5f), p, 1E-6f);
+        assertEquals(new Vector2f(0, 0.5f), p, 1E-6f);
     }
 
     @Test
     public static void testLineSegmentAab() {
         Vector2f p = new Vector2f();
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAab(0, 0, 0, 0, 0, 1, -0.5f, -1, 1, 0.5f, 1, 2, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 1), p, 1E-6f);
+        assertEquals(new Vector2f(1, 1), p, 1E-6f);
         assertEquals(Intersectionf.ONE_INTERSECTION, Intersectionf.intersectLineSegmentAab(1, 0, 0, 2, 0, 0, 0, -1, -1, 2, 0, 0, p));
-        TestUtil.assertVector2fEquals(new Vector2f(1, 1), p, 1E-6f);
+        assertEquals(new Vector2f(1, 1), p, 1E-6f);
         assertEquals(Intersectionf.TWO_INTERSECTION, Intersectionf.intersectLineSegmentAab(0, 0, -1, 0, 0, 0, 0, -1, -1, 1, 1, 0, p));
-        TestUtil.assertVector2fEquals(new Vector2f(0, 1), p, 1E-6f);
+        assertEquals(new Vector2f(0, 1), p, 1E-6f);
     }
 
     @Test
@@ -343,19 +343,19 @@ public class IntersectionfTest {
         Vector3f c = new Vector3f(1f, 0, 0);
         Vector3f p1 = new Vector3f(0.5f, 0.5f, 0);
         Vector3f v1 = Intersectionf.findClosestPointOnRectangle(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z, p1.x, p1.y, p1.z, new Vector3f());
-        TestUtil.assertVector3fEquals(new Vector3f(0.5f, 0.5f, 0), v1, EPSILON);
+        assertEquals(new Vector3f(0.5f, 0.5f, 0), v1, EPSILON);
         Vector3f p2 = new Vector3f(-1f, -0.5f, 0);
         Vector3f v2 = Intersectionf.findClosestPointOnRectangle(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z, p2.x, p2.y, p2.z, new Vector3f());
-        TestUtil.assertVector3fEquals(new Vector3f(0, 0, 0), v2, EPSILON);
+        assertEquals(new Vector3f(0, 0, 0), v2, EPSILON);
         Vector3f p3 = new Vector3f(-0.5f, 2f, 0);
         Vector3f v3 = Intersectionf.findClosestPointOnRectangle(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z, p3.x, p3.y, p3.z, new Vector3f());
-        TestUtil.assertVector3fEquals(new Vector3f(0, 1f, 0), v3, EPSILON);
+        assertEquals(new Vector3f(0, 1f, 0), v3, EPSILON);
         Vector3f p4 = new Vector3f(-1f, 0.5f, 0);
         Vector3f v4 = Intersectionf.findClosestPointOnRectangle(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z, p4.x, p4.y, p4.z, new Vector3f());
-        TestUtil.assertVector3fEquals(new Vector3f(0, 0.5f, 0), v4, EPSILON);
+        assertEquals(new Vector3f(0, 0.5f, 0), v4, EPSILON);
         Vector3f p5 = new Vector3f(0.5f, 1f, 0);
         Vector3f v5 = Intersectionf.findClosestPointOnRectangle(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z, p5.x, p5.y, p5.z, new Vector3f());
-        TestUtil.assertVector3fEquals(new Vector3f(0.5f, 1f, 0), v5, EPSILON);
+        assertEquals(new Vector3f(0.5f, 1f, 0), v5, EPSILON);
     }
 
 }

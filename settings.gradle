@@ -1,2 +1,4 @@
 rootProject.name = 'joml-ext'
 include 'joml-geometry'
+include 'joml-geometry-test'
+include 'joml-test'

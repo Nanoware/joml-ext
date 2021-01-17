@@ -1,0 +1,11 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+apply from: "$rootDir/gradle/common.gradle"
+
+dependencies {
+    implementation group: 'org.joml', name: 'joml', version: project.property('jomlVersion')
+    implementation(project(":joml-geometry"))
+}

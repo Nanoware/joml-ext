@@ -2,12 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.joml.geom;
 
+import org.joml.Vector2f;
 import org.joml.Vector2i;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.terasology.joml.test.VectorAssert.assertEquals;
 
 /**
  * Tests for the {@link Rectanglei} class.
