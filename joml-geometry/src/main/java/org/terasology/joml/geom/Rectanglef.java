@@ -5,6 +5,7 @@ package org.terasology.joml.geom;
 import org.joml.Math;
 import org.joml.Options;
 import org.joml.Runtime;
+import org.joml.Vector2dc;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.joml.Vector2ic;
@@ -212,6 +213,35 @@ public class Rectanglef implements Externalizable, Rectanglefc {
     @Override
     public Vector2f getSize(Vector2f dest) {
         return dest.set(maxX - minX, maxY - minY);
+    }
+
+    @Override
+    public Rectanglef setSize(float dx, float dy, Rectanglef dest) {
+        dest.maxX = dest.minX + dx;
+        dest.maxY = dest.minY + dy;
+        return dest;
+    }
+
+    public Rectanglef setSize(float dx, float dy) {
+        return setSize(dx,dy, this);
+    }
+
+    @Override
+    public Rectanglef setSize(Vector2fc size, Rectanglef dest) {
+        return setSize(size.x(), size.y(), dest);
+    }
+
+    public Rectanglef setSize(Vector2fc size) {
+        return setSize(size, this);
+    }
+
+    @Override
+    public Rectanglef setSize(Vector2dc size, Rectanglef dest) {
+        return setSize((float)size.x(), (float)size.y(), dest);
+    }
+
+    public Rectanglef setSize(Vector2dc size) {
+        return setSize((float)size.x(), (float)size.y(), this);
     }
 
     /**

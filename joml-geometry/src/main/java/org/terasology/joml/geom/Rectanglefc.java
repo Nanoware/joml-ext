@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.joml.geom;
 
+import org.joml.Vector2dc;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.joml.Vector2ic;
@@ -38,6 +39,38 @@ public interface Rectanglefc {
      * @return dest
      */
     Vector2f getSize(Vector2f dest);
+
+    /**
+     *
+     * Set the size of the rectangle minimum corner.
+     *
+     * @param dx the size along the x component
+     * @param dy the size along the y component
+     * @param dest will hold the result
+     * @return dest
+     */
+    Rectanglef setSize(float dx, float dy, Rectanglef dest);
+
+    /**
+     *
+     * Set the size of the rectangle from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @param dest will hold the result
+     * @return dest
+     */
+    Rectanglef setSize(Vector2fc size, Rectanglef dest);
+
+    /**
+     *
+     * Set the size of the rectangle from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @param dest will hold the result
+     * @return dest
+     */
+    Rectanglef setSize(Vector2dc size, Rectanglef dest);
+
 
     /**
      * Check if this rectangle contains the given <code>rectangle</code>.

@@ -126,6 +126,34 @@ public class Rectangled implements Externalizable, Rectangledc {
         return dest.set(this.maxX - this.minX, this.maxY - this.minY);
     }
 
+    @Override
+    public Rectangled setSize(double dx, double dy, Rectangled dest) {
+        dest.maxX = dest.minX + dx;
+        dest.maxY = dest.minY + dy;
+        return dest;
+    }
+
+    public Rectangled setSize(double dx, double dy) {
+        return setSize(dx,dy, this);
+    }
+
+    @Override
+    public Rectangled setSize(Vector2fc size, Rectangled dest) {
+        return setSize(size.x(), size.y(), dest);
+    }
+
+    public Rectangled setSize(Vector2fc size) {
+        return setSize(size, this);
+    }
+
+    @Override
+    public Rectangled setSize(Vector2dc size, Rectangled dest) {
+        return setSize(size.x(), size.y(), dest);
+    }
+
+    public Rectangled setSize(Vector2dc size) {
+        return setSize(size.x(), size.y(), this);
+    }
 
     /**
      * Set this {@link Rectangled} to be a clone of <code>source</code>.
