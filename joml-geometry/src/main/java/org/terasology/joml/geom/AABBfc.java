@@ -89,6 +89,38 @@ public interface AABBfc {
     Vector3d center(Vector3d dest);
 
     /**
+     *
+     * Set the size of the block region from the minimum corner.
+     *
+     * @param dx the size along the x component
+     * @param dy the size along the y component
+     * @param dz the size along the z component
+     * @param dest will hold the result
+     * @return dest
+     */
+    AABBf setSize(float dx, float dy, float dz, AABBf dest);
+
+    /**
+     *
+     * Set the size of the block region from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @param dest will hold the result
+     * @return dest
+     */
+    AABBf setSize(Vector3fc size, AABBf dest);
+
+    /**
+     *
+     * Set the size of the block region from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @param dest will hold the result
+     * @return dest
+     */
+    AABBf setSize(Vector3dc size, AABBf dest);
+
+    /**
      * Expand this aabb by adding the given {@code extents} for each face of the region.
      * <p>
      * Note that the resulting AABB might be {@link #isValid() invalid} after the operation.

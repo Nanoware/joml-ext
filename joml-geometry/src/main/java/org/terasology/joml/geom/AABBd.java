@@ -150,6 +150,56 @@ public class AABBd implements Externalizable, AABBdc {
         return this;
     }
 
+    /**
+     Set the size of the block region from the minimum corner.
+     *
+     * @param dx the size along the x component
+     * @param dy the size along the y component
+     * @param dz the size along the z component
+     * @return this
+     */
+    public AABBd setSize(double dx, double dy, double dz) {
+        return setSize(dx, dy, dz, this);
+    }
+
+    /**
+     Set the size of the block region from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @return this
+     */
+    public AABBd setSize(Vector3fc size) {
+        return setSize(size, this);
+    }
+
+    /**
+     Set the size of the block region from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @return this
+     */
+    public AABBd setSize(Vector3dc size) {
+        return setSize(size, this);
+    }
+    
+    @Override
+    public AABBd setSize(double dx, double dy, double dz, AABBd dest) {
+        dest.maxX = dest.minX + dx;
+        dest.maxY = dest.minY + dy;
+        dest.maxZ = dest.minZ + dz;
+        return dest;
+    }
+
+    @Override
+    public AABBd setSize(Vector3fc size, AABBd dest) {
+        return setSize(size.x(), size.y(), size.z(), dest);
+    }
+
+    @Override
+    public AABBd setSize(Vector3dc size, AABBd dest) {
+        return setSize(size.x(), size.y(), size.z(), dest);
+    }
+
     public double minX() {
         return minX;
     }
