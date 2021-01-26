@@ -60,4 +60,11 @@ public class RectanglefTest {
         Rectanglef rect = new Rectanglef(0, 0, 0, 0);
         assertFalse(rect.isValid());
     }
+
+    @Test
+    public void testRectangleFromPoint() {
+        Rectanglef rect = new Rectanglef(1,1);
+        assertFalse(rect.isValid());
+        assertFalse(rect.containsPoint(1,1));
+    }
 }

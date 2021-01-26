@@ -58,4 +58,11 @@ public class RectangledTest {
         Rectangled rect = new Rectangled(0, 0, 0, 0);
         assertFalse(rect.isValid());
     }
+
+    @Test
+    public void testRectangleFromPoint() {
+        Rectangled rect = new Rectangled(1,1);
+        assertFalse(rect.isValid());
+        assertFalse(rect.containsPoint(1,1));
+    }
 }
