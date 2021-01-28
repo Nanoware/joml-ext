@@ -131,6 +131,62 @@ public class AABBd implements Externalizable, AABBdc {
     }
 
     /**
+     * Create a new {@link AABBd} at x,y,z with a size of zero.
+     *
+     * Can be used with conjuction with {@link #expand(Vector3dc)} to create an aabb around a center and an extent or
+     * {@link #setSize} for an aabb from min to min + size.
+     *
+     * @param pos position of the center
+     */
+    public AABBd(Vector3dc pos) {
+        this.minX = (float) pos.x();
+        this.minY = (float) pos.y();
+        this.minZ = (float) pos.z();
+        this.maxX = (float) pos.x();
+        this.maxY = (float) pos.y();
+        this.maxZ = (float) pos.z();
+    }
+
+    /**
+     * Create a new {@link AABBd} at x,y,z with a size of zero.
+     *
+     * Can be used with conjuction with {@link #expand(Vector3dc)} to create an aabb around a center and an extent or
+     * {@link #setSize} for an aabb from min to min + size.
+     *
+     * @param pos position of the center
+     */
+    public AABBd(Vector3fc pos) {
+        this.minX = pos.x();
+        this.minY = pos.y();
+        this.minZ = pos.z();
+        this.maxX = pos.x();
+        this.maxY = pos.y();
+        this.maxZ = pos.z();
+    }
+
+    /**
+     * Create a new {@link AABBd} at x,y,z with a size of zero.
+     *
+     * Can be used with conjuction with {@link #expand(Vector3dc)} to create an aabb around a center and an extent or
+     * {@link #setSize} for an aabb from min to min + size.
+     *
+     * @param x
+     *          the x coordinate of the minimum corner and maximum corner
+     * @param y
+     *          the y coordinate of the minimum corner and maximum corner
+     * @param z
+     *          the z coordinate of the minimum corner and maximum corner
+     */
+    public AABBd(double x, double y, double z) {
+        this.minX = x;
+        this.minY = y;
+        this.minZ = z;
+        this.maxX = x;
+        this.maxY = y;
+        this.maxZ = z;
+    }
+
+    /**
      *
      * @param minX the x coordinate of the minimum corner
      * @param minY the y coordinate of the minimum corner
@@ -147,6 +203,59 @@ public class AABBd implements Externalizable, AABBdc {
         this.maxX = maxX;
         this.maxY = maxY;
         this.maxZ = maxZ;
+        return this;
+    }
+
+    /**
+     * Set {@link AABBd} at x,y,z with a size of zero.
+     *
+     * @param pos position of the center
+     * @return this
+     */
+    public AABBd set(Vector3dc pos){
+        this.minX = pos.x();
+        this.minY = pos.y();
+        this.minZ = pos.z();
+        this.maxX = pos.x();
+        this.maxY = pos.y();
+        this.maxZ = pos.z();
+        return this;
+    }
+
+    /**
+     * Set {@link AABBd} at x,y,z with a size of zero.
+     *
+     * @param pos position of the center
+     * @return this
+     */
+    public AABBd set(Vector3fc pos){
+        this.minX = pos.x();
+        this.minY = pos.y();
+        this.minZ = pos.z();
+        this.maxX = pos.x();
+        this.maxY = pos.y();
+        this.maxZ = pos.z();
+        return this;
+    }
+
+    /**
+     * Set {@link AABBd} at x,y,z with a size of zero.
+     *
+     * @param x
+     *          the x coordinate of the minimum corner and maximum corner
+     * @param y
+     *          the y coordinate of the minimum corner and maximum corner
+     * @param z
+     *          the z coordinate of the minimum corner and maximum corner
+     * @return this
+     */
+    public AABBd set(double x, double y, double z){
+        this.minX = x;
+        this.minY = y;
+        this.minZ = z;
+        this.maxX = x;
+        this.maxY = y;
+        this.maxZ = z;
         return this;
     }
 
