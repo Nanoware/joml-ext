@@ -50,11 +50,11 @@ public class Rectanglef implements Externalizable, Rectanglefc {
      *
      * @param source the {@link Rectanglef} to copy from
      */
-    public Rectanglef(Rectanglef source) {
-        this.minX = source.minX;
-        this.minY = source.minY;
-        this.maxX = source.maxX;
-        this.maxY = source.maxY;
+    public Rectanglef(Rectanglefc source) {
+        this.minX = source.minX();
+        this.minY = source.minY();
+        this.maxX = source.maxX();
+        this.maxY = source.maxY();
     }
 
     /**
@@ -149,11 +149,11 @@ public class Rectanglef implements Externalizable, Rectanglefc {
      * @param source the {@link Rectanglei} to copy from
      * @return this
      */
-    public Rectanglef set(Rectanglef source) {
-        this.minX = source.minX;
-        this.minY = source.minY;
-        this.maxX = source.maxX;
-        this.maxY = source.maxY;
+    public Rectanglef set(Rectanglefc source) {
+        this.minX = source.minX();
+        this.minY = source.minY();
+        this.maxX = source.maxX();
+        this.maxY = source.maxY();
         return this;
     }
 
