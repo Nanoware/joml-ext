@@ -4,6 +4,8 @@ import org.joml.Vector2dc;
 import org.joml.Vector2fc;
 import org.joml.Vector3dc;
 import org.joml.Vector3fc;
+import org.joml.Vector4dc;
+import org.joml.Vector4fc;
 
 import java.util.function.Supplier;
 
@@ -12,6 +14,18 @@ import static org.terasology.joml.test.AssertionUtils.isValid;
 
 public class VectorAssert {
     private VectorAssert() {
+    }
+
+    public static void assertEquals(Vector4fc expected, Vector4fc actual, float epsilon) {
+        if (isValid(expected, actual) && !expected.equals(actual, epsilon)) {
+            failNotEqual(expected, actual);
+        }
+    }
+
+    public static void assertEquals(Vector4dc expected, Vector4dc actual, float epsilon) {
+        if (isValid(expected, actual) && !expected.equals(actual, epsilon)) {
+            failNotEqual(expected, actual);
+        }
     }
 
     public static void assertEquals(Vector3fc expected, Vector3fc actual, float epsilon) {
