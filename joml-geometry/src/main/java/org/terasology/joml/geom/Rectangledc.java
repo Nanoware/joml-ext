@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.joml.geom;
 
+import org.joml.Math;
 import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector2fc;
@@ -360,4 +361,35 @@ public interface Rectangledc {
      */
     Rectangled intersection(Rectangleic other, Rectangled dest);
 
+    /**
+     * Computes the squared distance to a given point
+     * @param point the point
+     * @return the squared distance between point and this rectangle
+     */
+    default double distanceSquared(Vector2dc point) {
+        return distanceSquared(point.x(), point.y());
+    }
+
+    /**
+     * Computes the squared distance to a given point
+     * @param px the point x coordinate
+     * @param py the point y coordinate
+     * @return the squared distance between point and this rectangle
+     * @see
+     * <a href="https://codereview.stackexchange.com/questions/175566/compute-shortest-distance-between-point-and-a-rectangle">
+     *         Compute Shortest Distance Between Point and a Rectangle</a>
+     */
+    default double distanceSquared(double px, double py) {
+        //     center = min + width / 2 = min + (max - min) / 2
+        // 2 * center = 2 * min + max - min = min + max
+        double cx2 = minX() + maxX();
+        double cy2 = minY() + maxY();
+
+        //     dx = p - center - width / 2
+        // 2 * dx = 2 * px - 2 * center - width
+        //     dx = (2 * px - 2 * center - width) / 2
+        double dx = Math.max(Math.abs(2 * px - cx2) - getSizeX(), 0) / 2d;
+        double dy = Math.max(Math.abs(2 * py - cy2) - getSizeY(), 0) / 2d;
+        return dx * dx + dy * dy;
+    }
 }
