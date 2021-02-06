@@ -250,6 +250,8 @@ public class Rectanglef implements Externalizable, Rectanglefc {
 
     @Override
     public Rectanglef setSize(float dx, float dy, Rectanglef dest) {
+        dest.minX = this.minX;
+        dest.minY = this.minY;
         dest.maxX = dest.minX + dx;
         dest.maxY = dest.minY + dy;
         return dest;

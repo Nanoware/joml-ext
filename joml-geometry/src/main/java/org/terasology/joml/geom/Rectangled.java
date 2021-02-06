@@ -150,6 +150,8 @@ public class Rectangled implements Externalizable, Rectangledc {
 
     @Override
     public Rectangled setSize(double dx, double dy, Rectangled dest) {
+        dest.minX = this.minX;
+        dest.minY = this.minY;
         dest.maxX = dest.minX + dx;
         dest.maxY = dest.minY + dy;
         return dest;

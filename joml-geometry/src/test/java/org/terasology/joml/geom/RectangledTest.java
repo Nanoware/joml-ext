@@ -57,6 +57,15 @@ public class RectangledTest {
     public void testZeroSizeRectangle() {
         Rectangled rect = new Rectangled(0, 0, 0, 0);
         assertFalse(rect.isValid());
+        assertFalse(rect.containsPoint(new Vector2d(0,0)));
+    }
+
+    @Test
+    public void testSetSize() {
+        Rectangled rect = new Rectangled(1, 1, 2, 3);
+        Rectangled expected = new Rectangled(1, 1, 6, 6);
+        assertEquals(expected, rect.setSize(5,5, new Rectangled()));
+        assertEquals(expected, new Rectangled(rect).setSize(5, 5));
     }
 
     @Test

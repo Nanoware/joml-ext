@@ -59,6 +59,13 @@ public class RectanglefTest {
     public void testZeroSizeRectangle() {
         Rectanglef rect = new Rectanglef(0, 0, 0, 0);
         assertFalse(rect.isValid());
+        assertFalse(rect.containsPoint(new Vector2f(0,0)));
+    }
+
+    @Test
+    public void testSetSize() {
+        Rectanglef rect = new Rectanglef(1, 1, 2, 3);
+        assertEquals(new Rectanglef(rect).setSize(5, 5), rect.setSize(5,5, new Rectanglef()));
     }
 
     @Test
