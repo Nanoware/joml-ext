@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.joml.geom;
 
-import org.joml.Math;
 import org.joml.Vector2dc;
 import org.joml.Vector2fc;
 import org.joml.Vector2i;
@@ -30,6 +29,27 @@ public interface Rectangleic {
      * @return length in the Y dimension
      */
     int getSizeY();
+
+    /**
+     *
+     * Set the size of the rectangle minimum corner.
+     *
+     * @param dx the size along the x component
+     * @param dy the size along the y component
+     * @param dest will hold the result
+     * @return dest
+     */
+    Rectanglei setSize(int dx, int dy, Rectanglei dest);
+
+    /**
+     *
+     * Set the size of the rectangle from the minimum corner.
+     *
+     * @param size the size along x/y/z
+     * @param dest will hold the result
+     * @return dest
+     */
+    Rectanglei setSize(Vector2ic size, Rectanglei dest);
 
     /**
      * Return the size of this rectangle in the X and Y dimensions and store the result in <code>dest</code>.

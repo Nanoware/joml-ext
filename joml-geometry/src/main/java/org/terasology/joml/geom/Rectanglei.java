@@ -204,9 +204,32 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     @Override
+    public Rectanglei setSize(int dx, int dy, Rectanglei dest) {
+        dest.maxX = dx + this.minX;
+        dest.maxY = dx + this.minY;
+        dest.minX = this.minX;
+        dest.minY = this.minY;
+        return dest;
+    }
+
+    @Override
+    public Rectanglei setSize(Vector2ic size, Rectanglei dest) {
+        return setSize(size.x(), size.y(), dest);
+    }
+
+    public Rectanglei setSize(int dx, int dy) {
+        return setSize(dx,dy, this);
+    }
+
+    @Override
     public Vector2i getSize(Vector2i dest) {
         return dest.set(getSizeX(), getSizeY());
     }
+
+    public Rectanglei setSize(Vector2ic size) {
+        return setSize(size.x(), size.y(), this);
+    }
+
 
     /**
      * Return the length of the rectangle in the Y dimension.
