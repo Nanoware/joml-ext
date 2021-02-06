@@ -50,11 +50,11 @@ public class Rectanglei implements Externalizable, Rectangleic {
      * @param source
      *          the {@link Rectanglei} to copy from
      */
-    public Rectanglei(Rectanglei source) {
-        this.minX = source.minX;
-        this.minY = source.minY;
-        this.maxX = source.maxX;
-        this.maxY = source.maxY;
+    public Rectanglei(Rectangleic source) {
+        this.minX = source.minX();
+        this.minY = source.minY();
+        this.maxX = source.maxX();
+        this.maxY = source.maxY();
     }
 
     /**
@@ -118,11 +118,11 @@ public class Rectanglei implements Externalizable, Rectangleic {
      *            the {@link Rectanglei} to copy from
      * @return this
      */
-    public Rectanglei set(Rectanglei source){
-        this.minX = source.minX;
-        this.minY = source.minY;
-        this.maxX = source.maxX;
-        this.maxY = source.maxY;
+    public Rectanglei set(Rectangleic source){
+        this.minX = source.minX();
+        this.minY = source.minY();
+        this.maxX = source.maxX();
+        this.maxY = source.maxY();
         return this;
     }
 
@@ -296,30 +296,30 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     @Override
-    public Rectanglei union(Rectanglei other, Rectanglei dest) {
-        dest.minX = this.minX < other.minX ? this.minX : other.minX;
-        dest.minY = this.minY < other.minY ? this.minY : other.minY;
-        dest.maxX = this.maxX > other.maxX ? this.maxX : other.maxX;
-        dest.maxY = this.maxY > other.maxY ? this.maxY : other.maxY;
+    public Rectanglei union(Rectangleic other, Rectanglei dest) {
+        dest.minX = this.minX < other.minX() ? this.minX : other.minX();
+        dest.minY = this.minY < other.minY() ? this.minY : other.minY();
+        dest.maxX = this.maxX > other.maxX() ? this.maxX : other.maxX();
+        dest.maxY = this.maxY > other.maxY() ? this.maxY : other.maxY();
         return dest;
     }
 
     @Override
-    public boolean intersectsRectangle(Rectangled other) {
-        return minX <= other.maxX && maxX >= other.minX &&
-               maxY >= other.minY && minY <= other.maxY;
+    public boolean intersectsRectangle(Rectangledc other) {
+        return minX <= other.maxX() && maxX >= other.minX() &&
+               maxY >= other.minY() && minY <= other.maxY();
     }
 
     @Override
-    public boolean intersectsRectangle(Rectanglef other) {
-        return minX <= other.maxX && maxX >= other.minX &&
-               maxY >= other.minY && minY <= other.maxY;
+    public boolean intersectsRectangle(Rectanglefc other) {
+        return minX <= other.maxX() && maxX >= other.minX() &&
+               maxY >= other.minY() && minY <= other.maxY();
     }
 
     @Override
-    public boolean intersectsRectangle(Rectanglei other) {
-        return minX <= other.maxX && maxX >= other.minX &&
-               maxY >= other.minY && minY <= other.maxY;
+    public boolean intersectsRectangle(Rectangleic other) {
+        return minX <= other.maxX() && maxX >= other.minX() &&
+               maxY >= other.minY() && minY <= other.maxY();
     }
 
     private Rectanglei validate() {
@@ -348,7 +348,7 @@ public class Rectanglei implements Externalizable, Rectangleic {
      *          the other rectangle
      * @return this
      */
-    public Rectanglei intersection(Rectanglei other) {
+    public Rectanglei intersection(Rectangleic other) {
         return intersection(other, this);
     }
 

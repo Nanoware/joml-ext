@@ -46,9 +46,10 @@ public class Rectanglef implements Externalizable, Rectanglefc {
     }
 
     /**
-     * Create a new {@link Rectanglef} as a copy of the given <code>source</code>.
+     * Create a new {@link Rectanglefc} as a copy of the given <code>source</code>.
      *
-     * @param source the {@link Rectanglef} to copy from
+     * @param source
+     *          the {@link Rectanglefc} to copy from
      */
     public Rectanglef(Rectanglefc source) {
         this.minX = source.minX();
@@ -138,18 +139,20 @@ public class Rectanglef implements Externalizable, Rectanglefc {
                 rectangle.minY() >= minY() && rectangle.maxY() <= maxY();
     }
 
-    public boolean containsRectangle(Rectanglei rectangle) {
-        return rectangle.minX >= minX() && rectangle.maxX <= maxX() &&
-                rectangle.minY >= minY() && rectangle.maxY <= maxY();
+    public boolean containsRectangle(Rectangleic rectangle) {
+        return rectangle.minX() >= minX() && rectangle.maxX() <= maxX() &&
+            rectangle.minY() >= minY() && rectangle.maxY() <= maxY();
     }
-
+  
     /**
      * Set this rectangle to be a clone of <code>source</code>.
      *
-     * @param source the {@link Rectanglei} to copy from
+     * @param source
+     *            the {@link Rectanglefc} to copy from
      * @return this
      */
     public Rectanglef set(Rectanglefc source) {
+
         this.minX = source.minX();
         this.minY = source.minY();
         this.maxX = source.maxX();

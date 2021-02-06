@@ -45,10 +45,10 @@ public class Rectangled implements Externalizable, Rectangledc {
     }
 
     /**
-     * Create a new {@link Rectangled} as a copy of the given <code>source</code>.
+     * Create a new {@link Rectangledc} as a copy of the given <code>source</code>.
      *
      * @param source
-     *          the {@link Rectangled} to copy from
+     *          the {@link Rectangledc} to copy from
      */
     public Rectangled(Rectangledc source) {
         this.minX = source.minX();
@@ -183,7 +183,7 @@ public class Rectangled implements Externalizable, Rectangledc {
      * Set this {@link Rectangled} to be a clone of <code>source</code>.
      *
      * @param source
-     *            the {@link Rectangled} to copy from
+     *            the {@link Rectangledc} to copy from
      * @return this
      */
     public Rectangled set(Rectangledc source){

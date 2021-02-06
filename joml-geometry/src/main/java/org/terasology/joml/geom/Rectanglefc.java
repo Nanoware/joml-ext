@@ -99,7 +99,7 @@ public interface Rectanglefc {
      *          the rectangle to test
      * @return <code>true</code> iff this rectangle contains the rectangle; <code>false</code> otherwise
      */
-    boolean containsRectangle(Rectanglei rectangle);
+    boolean containsRectangle(Rectangleic rectangle);
 
     /**
      * Check if this rectangle contains the given <code>point</code>.
