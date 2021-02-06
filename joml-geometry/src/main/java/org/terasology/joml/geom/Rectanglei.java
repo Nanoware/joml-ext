@@ -91,6 +91,25 @@ public class Rectanglei implements Externalizable, Rectangleic {
         this.maxY = maxY;
     }
 
+    /**
+     * Create a new {@link Rectanglei} of size zero at the given point.
+     *
+     * @param x the x coordinate of both minimum and maximum corner
+     * @param y the y coordinate of both minimum and maximum corner
+     */
+    public Rectanglei(int x, int y) {
+        this(x, y, x, y);
+    }
+
+    /**
+     * Create a new {@link Rectanglei} of size zero at the given point.
+     *
+     * @param point the coordinate of both minimum and maximum corner
+     */
+    public Rectanglei(Vector2ic point) {
+        this(point.x(), point.y());
+    }
+
     @Override
     public int minX() {
         return this.minX;
