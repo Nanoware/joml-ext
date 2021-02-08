@@ -225,7 +225,7 @@ public class Rectanglei implements Externalizable, Rectangleic {
     @Override
     public Rectanglei setSize(int dx, int dy, Rectanglei dest) {
         dest.maxX = dx + this.minX;
-        dest.maxY = dx + this.minY;
+        dest.maxY = dy + this.minY;
         dest.minX = this.minX;
         dest.minY = this.minY;
         return dest;

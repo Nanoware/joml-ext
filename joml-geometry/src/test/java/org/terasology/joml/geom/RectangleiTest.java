@@ -94,6 +94,16 @@ public class RectangleiTest {
 
         assertEquals(first.intersection(second, new Rectanglei()), new Rectanglei(0, 0, 1, 1));
     }
+
+    @Test
+    public void testRectangleSetSize() {
+        Rectanglei v1 = new Rectanglei(-1, -1, 1, 1);
+
+        assertEquals(new Rectanglei(0, 0, 2, 2).setSize(3, 3), new Rectanglei(0, 0, 3, 3));
+        assertEquals(v1.setSize(3, 3, new Rectanglei()), new Rectanglei(-1, -1, 2, 2));
+        assertEquals(v1, new Rectanglei(-1, -1, 1, 1));
+    }
+
     @Test
     public void testZeroSizeRectangle() {
         Rectanglei rect = new Rectanglei(0, 0, 0, 0);
