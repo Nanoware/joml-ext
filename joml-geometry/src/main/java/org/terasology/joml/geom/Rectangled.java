@@ -8,6 +8,7 @@ import org.joml.Runtime;
 import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector2fc;
+import org.joml.Vector2ic;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -180,43 +181,62 @@ public class Rectangled implements Externalizable, Rectangledc {
     }
 
     /**
-     * Set this {@link Rectangled} to be a clone of <code>source</code>.
+     * Set this rectangle to be a clone of <code>source</code>.
      *
-     * @param source
-     *            the {@link Rectangledc} to copy from
+     * @param source the rectangle to copy from
      * @return this
      */
-    public Rectangled set(Rectangledc source){
-        this.minX = source.minX();
-        this.minY = source.minY();
-        this.maxX = source.maxX();
-        this.maxY = source.maxY();
+    public Rectangled set(Rectangledc source) {
+        return set(source.minX(), source.minY(), source.maxX(), source.maxY());
+    }
+
+    /**
+     * Set the minimum and maximum corner of this rectangle to given values.
+     *
+     * @param min the minimum corner
+     * @param min the maximum corner
+     * @return this
+     */
+    public Rectangled set(Vector2dc min, Vector2dc max) {
+        return set(min.x(), min.y(), max.x(), max.y());
+    }
+
+    /**
+     * Set the minimum and maximum corner of this rectangle to given values.
+     *
+     * @param minX the minimum x coordinate
+     * @param minY the minimum y coordinate
+     * @param maxX the maximum x coordinate
+     * @param maxY the maximum y coordinate
+     * @return this
+     */
+    public Rectangled set(double minX, double minY, double maxX, double maxY) {
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
         return this;
     }
 
     /**
-     * Set this rectangle to the given point <code>(x, y)</code> with zero size.
-     *
-     * @param x the x coordinate of both minimum and maximum corner
-     * @param y the y coordinate of both minimum and maximum corner
-     * @return this
-     */
-    public Rectangled set(double x, double y) {
-        this.minX = x;
-        this.minY = y;
-        this.maxX = x;
-        this.maxY = y;
-        return this;
-    }
-
-    /**
-     * Set this rectangle to the given <code>point</code> with zero size.
+     * Set this rectangle to a rectangle of size zero at the given point.
      *
      * @param point the coordinate of both minimum and maximum corner
      * @return this
      */
-    public Rectangled set(Vector2fc point) {
+    public Rectangled set(Vector2dc point) {
         return set(point.x(), point.y());
+    }
+
+    /**
+     * Set this rectangle to a rectangle of size zero at the given point.
+     *
+     * @param x the coordinate of both minimum and maximum x coordinate
+     * @param y the coordinate of both minimum and maximum y coordinate
+     * @return this
+     */
+    public Rectangled set(double x, double y) {
+        return set(x, y, x, y);
     }
 
     /**
@@ -294,13 +314,9 @@ public class Rectangled implements Externalizable, Rectangledc {
         return maxY - minY;
     }
 
-    /**
-     * Return the area of the rectangle
-     *
-     * @return area
-     */
+    @Override
     public double area() {
-        return lengthX() * lengthY();
+        return getSizeX() * getSizeY();
     }
 
     private Rectangled validate() {
@@ -413,8 +429,6 @@ public class Rectangled implements Externalizable, Rectangledc {
         return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
                rectangle.minY() >= minY && rectangle.maxY() <= maxY;
     }
-
-
 
     /**
      * Check if this rectangle contains the given <code>rectangle</code>.
@@ -544,6 +558,26 @@ public class Rectangled implements Externalizable, Rectangledc {
 
     @Override
     public boolean containsPoint(double x, double y) {
+        return x > minX && y > minY && x < maxX && y < maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2ic point) {
+        return containsPoint(point.x(), point.y());
+    }
+
+    @Override
+    public boolean containsPoint(int x, int y) {
+        return x > minX && y > minY && x < maxX && y < maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2fc point) {
+        return containsPoint(point.x(), point.y());
+    }
+
+    @Override
+    public boolean containsPoint(float x, float y) {
         return x > minX && y > minY && x < maxX && y < maxY;
     }
 

@@ -143,46 +143,64 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return rectangle.minX() >= minX() && rectangle.maxX() <= maxX() &&
             rectangle.minY() >= minY() && rectangle.maxY() <= maxY();
     }
-  
+
     /**
      * Set this rectangle to be a clone of <code>source</code>.
      *
-     * @param source
-     *            the {@link Rectanglefc} to copy from
+     * @param source the rectangle to copy from
      * @return this
      */
     public Rectanglef set(Rectanglefc source) {
-
-        this.minX = source.minX();
-        this.minY = source.minY();
-        this.maxX = source.maxX();
-        this.maxY = source.maxY();
-        return this;
+        return set(source.minX(), source.minY(), source.maxX(), source.maxY());
     }
 
     /**
-     * Set this rectangle to the given point <code>(x, y)</code> with zero size.
+     * Set the minimum and maximum corner of this rectangle to given values.
      *
-     * @param x the x coordinate of both minimum and maximum corner
-     * @param y the y coordinate of both minimum and maximum corner
+     * @param min the minimum corner
+     * @param min the maximum corner
      * @return this
      */
-    public Rectanglef set(float x, float y) {
-        this.minX = x;
-        this.minY = y;
-        this.maxX = x;
-        this.maxY = y;
+    public Rectanglef set(Vector2fc min, Vector2fc max) {
+        return set(min.x(), min.y(), max.x(), max.y());
+    }
+
+    /**
+     * Set the minimum and maximum corner of this rectangle to given values.
+     *
+     * @param minX the minimum x coordinate
+     * @param minY the minimum y coordinate
+     * @param maxX the maximum x coordinate
+     * @param maxY the maximum y coordinate
+     * @return this
+     */
+    public Rectanglef set(float minX, float minY, float maxX, float maxY) {
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
         return this;
     }
 
     /**
-     * Set this rectangle to the given <code>point</code> with zero size.
+     * Set this rectangle to a rectangle of size zero at the given point.
      *
      * @param point the coordinate of both minimum and maximum corner
      * @return this
      */
     public Rectanglef set(Vector2fc point) {
         return set(point.x(), point.y());
+    }
+
+    /**
+     * Set this rectangle to a rectangle of size zero at the given point.
+     *
+     * @param x the coordinate of both minimum and maximum x coordinate
+     * @param y the coordinate of both minimum and maximum y coordinate
+     * @return this
+     */
+    public Rectanglef set(float x, float y) {
+        return set(x, y, x, y);
     }
 
     /**
@@ -302,13 +320,9 @@ public class Rectanglef implements Externalizable, Rectanglefc {
         return maxY - minY;
     }
 
-    /**
-     * Return the area of the rectangle
-     *
-     * @return area
-     */
+    @Override
     public float area() {
-        return lengthX() * lengthY();
+        return getSizeX() * getSizeY();
     }
 
     /**
@@ -469,6 +483,24 @@ public class Rectanglef implements Externalizable, Rectanglefc {
 
     @Override
     public boolean containsPoint(float x, float y) {
+        return x > minX && y > minY && x < maxX && y < maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2ic point) {
+        return containsPoint(point.x(), point.y());    }
+
+    @Override
+    public boolean containsPoint(int x, int y) {
+        return x > minX && y > minY && x < maxX && y < maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2dc point) {
+        return containsPoint(point.x(), point.y());    }
+
+    @Override
+    public boolean containsPoint(double x, double y) {
         return x > minX && y > minY && x < maxX && y < maxY;
     }
 

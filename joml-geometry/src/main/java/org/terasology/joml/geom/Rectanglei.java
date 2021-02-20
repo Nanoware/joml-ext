@@ -5,6 +5,7 @@ package org.terasology.joml.geom;
 import org.joml.Math;
 import org.joml.Options;
 import org.joml.Runtime;
+import org.joml.Vector2dc;
 import org.joml.Vector2fc;
 import org.joml.Vector2i;
 import org.joml.Vector2ic;
@@ -45,50 +46,37 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     /**
-     * Create a new {@link Rectanglei} as a copy of the given <code>source</code>.
-     *
-     * @param source
-     *          the {@link Rectanglei} to copy from
-     */
-    public Rectanglei(Rectangleic source) {
-        this.minX = source.minX();
-        this.minY = source.minY();
-        this.maxX = source.maxX();
-        this.maxY = source.maxY();
-    }
-
-    /**
-     * Create a new {@link Rectanglei} with the given <code>min</code> and <code>max</code> corner coordinates.
-     *
-     * @param min
-     *          the minimum coordinates
-     * @param max
-     *          the maximum coordinates
-     */
-    public Rectanglei(Vector2ic min, Vector2ic max) {
-        this.minX = min.x();
-        this.minY = min.y();
-        this.maxX = max.x();
-        this.maxY = max.y();
-    }
-
-    /**
      * Create a new {@link Rectanglei} with the given minimum and maximum corner coordinates.
      *
-     * @param minX
-     *          the x coordinate of the minimum corner
-     * @param minY
-     *          the y coordinate of the minimum corner
-     * @param maxX
-     *          the x coordinate of the maximum corner
-     * @param maxY
-     *          the y coordinate of the maximum corner
+     * @param minX the x coordinate of the minimum corner
+     * @param minY the y coordinate of the minimum corner
+     * @param maxX the x coordinate of the maximum corner
+     * @param maxY the y coordinate of the maximum corner
      */
     public Rectanglei(int minX, int minY, int maxX, int maxY) {
         this.minX = minX;
         this.minY = minY;
         this.maxX = maxX;
         this.maxY = maxY;
+    }
+
+    /**
+     * Create a new {@link Rectanglei} as a copy of the given <code>source</code>.
+     *
+     * @param source the {@link Rectanglei} to copy from
+     */
+    public Rectanglei(Rectangleic source) {
+        this(source.minX(), source.minY(), source.maxX(), source.maxY());
+    }
+
+    /**
+     * Create a new {@link Rectanglei} with the given <code>min</code> and <code>max</code> corner coordinates.
+     *
+     * @param min the minimum coordinates
+     * @param max the maximum coordinates
+     */
+    public Rectanglei(Vector2ic min, Vector2ic max) {
+        this(min.x(), min.y(), max.x(), max.y());
     }
 
     /**
@@ -131,27 +119,69 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     /**
-     * Set this {@link Rectanglei} to be a clone of <code>source</code>.
+     * Set this rectangle to be a clone of <code>source</code>.
      *
-     * @param source
-     *            the {@link Rectanglei} to copy from
+     * @param source the rectangle to copy from
      * @return this
      */
-    public Rectanglei set(Rectangleic source){
-        this.minX = source.minX();
-        this.minY = source.minY();
-        this.maxX = source.maxX();
-        this.maxY = source.maxY();
+    public Rectanglei set(Rectangleic source) {
+        return set(source.minX(), source.minY(), source.maxX(), source.maxY());
+    }
+
+    /**
+     * Set the minimum and maximum corner of this rectangle to given values.
+     *
+     * @param min the minimum corner
+     * @param min the maximum corner
+     * @return this
+     */
+    public Rectanglei set(Vector2ic min, Vector2ic max) {
+        return set(min.x(), min.y(), max.x(), max.y());
+    }
+
+    /**
+     * Set the minimum and maximum corner of this rectangle to given values.
+     *
+     * @param minX the minimum x coordinate
+     * @param minY the minimum y coordinate
+     * @param maxX the maximum x coordinate
+     * @param maxY the maximum y coordinate
+     * @return this
+     */
+    public Rectanglei set(int minX, int minY, int maxX, int maxY) {
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
         return this;
+    }
+
+    /**
+     * Set this rectangle to a rectangle of size zero at the given point.
+     *
+     * @param point the coordinate of both minimum and maximum corner
+     * @return this
+     */
+    public Rectanglei set(Vector2ic point) {
+        return set(point.x(), point.y());
+    }
+
+    /**
+     * Set this rectangle to a rectangle of size zero at the given point.
+     *
+     * @param x the coordinate of both minimum and maximum x coordinate
+     * @param y the coordinate of both minimum and maximum y coordinate
+     * @return this
+     */
+    public Rectanglei set(int x, int y) {
+        return set(x, y, x, y);
     }
 
     /**
      * Set the minimum corner coordinates.
      *
-     * @param minX
-     *          the x coordinate of the minimum corner
-     * @param minY
-     *          the y coordinate of the minimum corner
+     * @param minX the x coordinate of the minimum corner
+     * @param minY the y coordinate of the minimum corner
      * @return this
      */
     public Rectanglei setMin(int minX, int minY) {
@@ -163,8 +193,7 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Set the minimum corner coordinates.
      *
-     * @param min
-     *          the minimum coordinates
+     * @param min the minimum coordinates
      * @return this
      */
     public Rectanglei setMin(Vector2ic min) {
@@ -173,14 +202,11 @@ public class Rectanglei implements Externalizable, Rectangleic {
         return this;
     }
 
-
     /**
      * Set the maximum corner coordinates.
      *
-     * @param maxX
-     *              the x coordinate of the maximum corner
-     * @param maxY
-     *              the y coordinate of the maximum corner
+     * @param maxX the x coordinate of the maximum corner
+     * @param maxY the y coordinate of the maximum corner
      * @return this
      */
     public Rectanglei setMax(int maxX, int maxY) {
@@ -192,14 +218,18 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Set the maximum corner coordinates.
      *
-     * @param max
-     *          the maximum coordinates
+     * @param max the maximum coordinates
      * @return this
      */
     public Rectanglei setMax(Vector2ic max) {
         this.maxX = max.x();
         this.maxY = max.y();
         return this;
+    }
+
+    @Override
+    public int getSizeX() {
+        return maxX - minX;
     }
 
     /**
@@ -209,17 +239,38 @@ public class Rectanglei implements Externalizable, Rectangleic {
      * @deprecated use {@link #getSizeX()}
      */
     public int lengthX() {
-        return maxX - minX;
-    }
-
-    @Override
-    public int getSizeX() {
-        return maxX - minX;
+        return getSizeX();
     }
 
     @Override
     public int getSizeY() {
         return maxY - minY;
+    }
+
+    /**
+     * Return the length of the rectangle in the Y dimension.
+     *
+     * @return length in the Y dimension
+     * @deprecated use {@link #getSizeY()}
+     */
+    public int lengthY() {
+        return getSizeY();
+    }
+
+    @Override
+    public Vector2i getSize(Vector2i dest) {
+        return dest.set(getSizeX(), getSizeY());
+    }
+
+    /**
+     * Return the length of this rectangle in the X and Y dimensions and store the result in <code>dest</code>.
+     *
+     * @param dest will hold the result
+     * @return dest
+     * @deprecated Use {@link #getSize(Vector2i)}
+     */
+    public Vector2i lengths(Vector2i dest) {
+        return dest.set(lengthX(), lengthY());
     }
 
     @Override
@@ -237,52 +288,48 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     public Rectanglei setSize(int dx, int dy) {
-        return setSize(dx,dy, this);
-    }
-
-    @Override
-    public Vector2i getSize(Vector2i dest) {
-        return dest.set(getSizeX(), getSizeY());
+        return setSize(dx, dy, this);
     }
 
     public Rectanglei setSize(Vector2ic size) {
         return setSize(size.x(), size.y(), this);
     }
 
-
-    /**
-     * Return the length of the rectangle in the Y dimension.
-     *
-     * @return length in the Y dimension
-     * @deprecated use {@link #getSizeY()}
-     */
-    public int lengthY() {
-        return maxY - minY;
-    }
-
+    @Override
     public int area() {
         return getSizeX() * getSizeY();
     }
 
+    @Override
+    public boolean isValid() {
+        return minX < maxX && minY < maxY;
+    }
+
+    private Rectanglei validate() {
+        if (!isValid()) {
+            minX = Integer.MAX_VALUE;
+            minY = Integer.MAX_VALUE;
+            maxX = Integer.MIN_VALUE;
+            maxY = Integer.MIN_VALUE;
+        }
+        return this;
+    }
+
     /**
      * Set <code>this</code> to the union of <code>this</code> and the given point <code>p</code>.
      *
-     * @param x
-     *          the x coordinate of the point
-     * @param y
-     *          the y coordinate of the point
+     * @param x the x coordinate of the point
+     * @param y the y coordinate of the point
      * @return this
      */
     public Rectanglei union(int x, int y) {
-        return union(x,y, this);
+        return union(x, y, this);
     }
-
 
     /**
      * Set <code>this</code> to the union of <code>this</code> and the given point <code>p</code>.
      *
-     * @param p
-     *          the point
+     * @param p the point
      * @return this
      */
     public Rectanglei union(Vector2ic p) {
@@ -306,8 +353,7 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Set <code>this</code> to the union of <code>this</code> and <code>other</code>.
      *
-     * @param other
-     *          the other {@link Rectanglei}
+     * @param other the other {@link Rectanglei}
      * @return this
      */
     public Rectanglei union(Rectanglei other) {
@@ -323,128 +369,15 @@ public class Rectanglei implements Externalizable, Rectangleic {
         return dest;
     }
 
-    @Override
-    public boolean intersectsRectangle(Rectangledc other) {
-        return minX <= other.maxX() && maxX >= other.minX() &&
-               maxY >= other.minY() && minY <= other.maxY();
-    }
-
-    @Override
-    public boolean intersectsRectangle(Rectanglefc other) {
-        return minX <= other.maxX() && maxX >= other.minX() &&
-               maxY >= other.minY() && minY <= other.maxY();
-    }
-
-    @Override
-    public boolean intersectsRectangle(Rectangleic other) {
-        return minX <= other.maxX() && maxX >= other.minX() &&
-               maxY >= other.minY() && minY <= other.maxY();
-    }
-
-    private Rectanglei validate() {
-        if (!isValid()) {
-            minX = Integer.MAX_VALUE;
-            minY = Integer.MAX_VALUE;
-            maxX = Integer.MIN_VALUE;
-            maxY = Integer.MIN_VALUE;
-        }
-        return this;
-    }
-
-    @Override
-    public boolean isValid() {
-        return minX < maxX && minY < maxY;
-    }
-
-    /**
-     * Compute the rectangle of intersection between <code>this</code> and the given rectangle.
-     * <p>
-     * If the two rectangles do not intersect, then the minimum coordinates of <code>this</code>
-     * will have a value of {@link Integer#MAX_VALUE} and the maximum coordinates will have a value of
-     * {@link Integer#MIN_VALUE}.
-     *
-     * @param other
-     *          the other rectangle
-     * @return this
-     */
-    public Rectanglei intersection(Rectangleic other) {
-        return intersection(other, this);
-    }
-
-    @Override
-    public Rectanglei intersection(Rectangleic other, Rectanglei dest) {
-        dest.minX = Math.max(minX, other.minX());
-        dest.minY = Math.max(minY, other.minY());
-        dest.maxX = Math.min(maxX, other.maxX());
-        dest.maxY = Math.min(maxY, other.maxY());
-        return dest.validate();
-    }
-
-    /**
-     * Return the length of this rectangle in the X and Y dimensions and store the result in <code>dest</code>.
-     *
-     * @param dest
-     *          will hold the result
-     * @return dest
-     * @deprecated Use {@link #getSize(Vector2i)}
-     */
-    public Vector2i lengths(Vector2i dest) {
-        return dest.set(lengthX(), lengthY());
-    }
-
-
-    @Override
-    public boolean containsRectangle(Rectangledc rectangle) {
-        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
-               rectangle.minY() >= minY && rectangle.maxY() <= maxY;
-    }
-
-    @Override
-    public boolean containsRectangle(Rectanglefc rectangle) {
-        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
-               rectangle.minY() >= minY && rectangle.maxY() <= maxY;
-    }
-
-
-    @Override
-    public boolean containsRectangle(Rectangleic rectangle) {
-        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
-               rectangle.minY() >= minY && rectangle.maxY() <= maxY;
-    }
-
-    @Override
-    public boolean containsPoint(Vector2ic point) {
-        return containsPoint(point.x(), point.y());
-    }
-
-
-    @Override
-    public boolean containsPoint(float x, float y) {
-        return x >= this.minX && y >= this.minY && x <= this.maxX && y <= this.maxY;
-    }
-
-    @Override
-    public boolean containsPoint(Vector2fc point) {
-        return containsPoint(point.x(), point.y());
-    }
-
-
-    @Override
-    public boolean containsPoint(int x, int y) {
-        return x >= minX && y >= minY && x <= maxX && y <= maxY;
-    }
-
     /**
      * Translate <code>this</code> by the given vector <code>xy</code>.
      *
-     * @param xy
-     *          the vector to translate by
+     * @param xy the vector to translate by
      * @return this
      */
     public Rectanglei translate(Vector2ic xy) {
         return translate(xy.x(), xy.y(), this);
     }
-
 
     @Override
     public Rectanglei translate(Vector2ic xy, Rectanglei dest) {
@@ -454,10 +387,8 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Translate <code>this</code> by the vector <code>(x, y)</code>.
      *
-     * @param x
-     *          the x coordinate to translate by
-     * @param y
-     *          the y coordinate to translate by
+     * @param x the x coordinate to translate by
+     * @param y the y coordinate to translate by
      * @return this
      */
     public Rectanglei translate(int x, int y) {
@@ -476,14 +407,12 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Scale <code>this</code> about the origin.
      *
-     * @param sf
-     *          the scaling factor in the x and y axis.
+     * @param sf the scaling factor in the x and y axis.
      * @return this
      */
     public Rectanglei scale(int sf) {
         return scale(sf, sf);
     }
-
 
     @Override
     public Rectanglei scale(int sf, Rectanglei dest) {
@@ -500,18 +429,14 @@ public class Rectanglei implements Externalizable, Rectangleic {
      *     translate(ax, ay);
      * </pre>
      *
-     * @param sf
-     *          the scaling factor in the x and y axis
-     * @param ax
-     *          the x coordinate of the anchor
-     * @param ay
-     *          the y coordinate of the anchor
+     * @param sf the scaling factor in the x and y axis
+     * @param ax the x coordinate of the anchor
+     * @param ay the y coordinate of the anchor
      * @return this
      */
     public Rectanglei scale(int sf, int ax, int ay) {
         return scale(sf, sf, ax, ay);
     }
-
 
     @Override
     public Rectanglei scale(int sf, int ax, int ay, Rectanglei dest) {
@@ -528,16 +453,13 @@ public class Rectanglei implements Externalizable, Rectangleic {
      *     translate(anchor.negate());
      * </pre>
      *
-     * @param sf
-     *          the scaling factor in the x and y axis
-     * @param anchor
-     *          the location of the anchor
+     * @param sf the scaling factor in the x and y axis
+     * @param anchor the location of the anchor
      * @return this
      */
     public Rectanglei scale(int sf, Vector2ic anchor) {
         return scale(sf, anchor.x(), anchor.y());
     }
-
 
     @Override
     public Rectanglei scale(int sf, Vector2ic anchor, Rectanglei dest) {
@@ -547,16 +469,13 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Scale <code>this</code> about the origin.
      *
-     * @param sx
-     *          the scaling factor on the x axis
-     * @param sy
-     *          the scaling factor on the y axis
+     * @param sx the scaling factor on the x axis
+     * @param sy the scaling factor on the y axis
      * @return this
      */
     public Rectanglei scale(int sx, int sy) {
         return scale(sx, sy, 0, 0);
     }
-
 
     @Override
     public Rectanglei scale(int sx, int sy, Rectanglei dest) {
@@ -564,22 +483,17 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     /**
-     * Scale <code>this</code> about an anchor.
-     * This is equivalent to <br>
+     * Scale <code>this</code> about an anchor. This is equivalent to <br>
      * <pre>
      *     translate(-ax, -ay);
      *     scale(sx, sy);
      *     translate(ax, ay);
      * </pre>
      *
-     * @param sx
-     *          the scaling factor on the x axis
-     * @param sy
-     *          the scaling factor on the y axis
-     * @param ax
-     *          the x coordinate of the anchor
-     * @param ay
-     *          the y coordinate of the anchor
+     * @param sx the scaling factor on the x axis
+     * @param sy the scaling factor on the y axis
+     * @param ax the x coordinate of the anchor
+     * @param ay the y coordinate of the anchor
      * @return this
      */
     public Rectanglei scale(int sx, int sy, int ax, int ay) {
@@ -600,18 +514,14 @@ public class Rectanglei implements Externalizable, Rectangleic {
      *     translate(anchor.negate());
      * </pre>
      *
-     * @param sx
-     *          the scaling factor on the x axis
-     * @param sy
-     *          the scaling factor on the y axis
-     * @param anchor
-     *          the location of the anchor
+     * @param sx the scaling factor on the x axis
+     * @param sy the scaling factor on the y axis
+     * @param anchor the location of the anchor
      * @return this
      */
     public Rectanglei scale(int sx, int sy, Vector2ic anchor) {
         return scale(sx, sy, anchor.x(), anchor.y());
     }
-
 
     @Override
     public Rectanglei scale(int sx, int sy, int ax, int ay, Rectanglei dest) {
@@ -625,6 +535,114 @@ public class Rectanglei implements Externalizable, Rectangleic {
     @Override
     public Rectanglei scale(int sx, int sy, Vector2ic anchor, Rectanglei dest) {
         return scale(sx, sy, anchor.x(), anchor.y(), dest);
+    }
+
+    @Override
+    public boolean containsRectangle(Rectangledc rectangle) {
+        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
+                rectangle.minY() >= minY && rectangle.maxY() <= maxY;
+    }
+
+    @Override
+    public boolean containsRectangle(Rectanglefc rectangle) {
+        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
+                rectangle.minY() >= minY && rectangle.maxY() <= maxY;
+    }
+
+    @Override
+    public boolean containsRectangle(Rectangleic rectangle) {
+        return rectangle.minX() >= minX && rectangle.maxX() <= maxX &&
+                rectangle.minY() >= minY && rectangle.maxY() <= maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2ic point) {
+        return containsPoint(point.x(), point.y());
+    }
+
+    @Override
+    public boolean containsPoint(float x, float y) {
+        return x >= this.minX && y >= this.minY && x <= this.maxX && y <= this.maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2fc point) {
+        return containsPoint(point.x(), point.y());
+    }
+
+    @Override
+    public boolean containsPoint(int x, int y) {
+        return x >= minX && y >= minY && x <= maxX && y <= maxY;
+    }
+
+    @Override
+    public boolean containsPoint(Vector2dc point) {
+        return containsPoint(point.x(), point.y());
+    }
+
+    @Override
+    public boolean containsPoint(double x, double y) {
+        return x >= this.minX && y >= this.minY && x <= this.maxX && y <= this.maxY;
+    }
+
+    @Override
+    public boolean intersectsRectangle(Rectangledc other) {
+        return minX <= other.maxX() && maxX >= other.minX() &&
+                maxY >= other.minY() && minY <= other.maxY();
+    }
+
+    @Override
+    public boolean intersectsRectangle(Rectanglefc other) {
+        return minX <= other.maxX() && maxX >= other.minX() &&
+                maxY >= other.minY() && minY <= other.maxY();
+    }
+
+    @Override
+    public boolean intersectsRectangle(Rectangleic other) {
+        return minX <= other.maxX() && maxX >= other.minX() &&
+                maxY >= other.minY() && minY <= other.maxY();
+    }
+
+    @Override
+    public Rectanglei intersection(Rectangleic other, Rectanglei dest) {
+        dest.minX = Math.max(minX, other.minX());
+        dest.minY = Math.max(minY, other.minY());
+        dest.maxX = Math.min(maxX, other.maxX());
+        dest.maxY = Math.min(maxY, other.maxY());
+        return dest.validate();
+    }
+
+    /**
+     * Compute the rectangle of intersection between <code>this</code> and the given rectangle.
+     * <p>
+     * If the two rectangles do not intersect, then the minimum coordinates of <code>this</code> will have a value of
+     * {@link Integer#MAX_VALUE} and the maximum coordinates will have a value of {@link Integer#MIN_VALUE}.
+     *
+     * @param other the other rectangle
+     * @return this
+     */
+    public Rectanglei intersection(Rectangleic other) {
+        return intersection(other, this);
+    }
+
+    @Override
+    public long distanceSquared(Vector2ic point) {
+        return distanceSquared(point.x(), point.y());
+    }
+
+    @Override
+    public long distanceSquared(int px, int py) {
+        //     center = min + width / 2 = min + (max - min) / 2
+        // 2 * center = 2 * min + max - min = min + max
+        int cx2 = minX() + maxX();
+        int cy2 = minY() + maxY();
+
+        //     dx = p - center - width / 2
+        // 2 * dx = 2 * px - 2 * center - width
+        //     dx = (2 * px - 2 * center - width) / 2
+        long dx = Math.max(Math.abs(2 * px - cx2) - getSizeX(), 0) / 2;
+        long dy = Math.max(Math.abs(2 * py - cy2) - getSizeY(), 0) / 2;
+        return dx * dx + dy * dy;
     }
 
     public int hashCode() {
@@ -659,7 +677,8 @@ public class Rectanglei implements Externalizable, Rectangleic {
     /**
      * Return a string representation of this rectangle.
      * <p>
-     * This method creates a new {@link DecimalFormat} on every invocation with the format string "<code>0.000E0;-</code>".
+     * This method creates a new {@link DecimalFormat} on every invocation with the format string
+     * "<code>0.000E0;-</code>".
      *
      * @return the string representation
      */
@@ -668,15 +687,15 @@ public class Rectanglei implements Externalizable, Rectangleic {
     }
 
     /**
-     * Return a string representation of this rectangle by formatting the vector components with the given {@link NumberFormat}.
+     * Return a string representation of this rectangle by formatting the vector components with the given {@link
+     * NumberFormat}.
      *
-     * @param formatter
-     *          the {@link NumberFormat} used to format the vector components with
+     * @param formatter the {@link NumberFormat} used to format the vector components with
      * @return the string representation
      */
     public String toString(NumberFormat formatter) {
         return "(" + formatter.format(minX) + " " + formatter.format(minY) + ") < "
-             + "(" + formatter.format(maxX) + " " + formatter.format(maxY) + ")";
+                + "(" + formatter.format(maxX) + " " + formatter.format(maxY) + ")";
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {
