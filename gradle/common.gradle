@@ -31,7 +31,7 @@ javadoc {
     failOnError = false
 }
 
-version="0.1.0"
+version="0.2.0-SNAPSHOT"
 group = 'org.terasology.joml-ext'
 
 publishing {
