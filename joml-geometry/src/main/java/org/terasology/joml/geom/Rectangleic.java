@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.joml.geom;
 
+import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector2fc;
 import org.joml.Vector2i;
@@ -13,9 +14,29 @@ public interface Rectangleic {
 
     int minY();
 
+    /**
+     * Return the minimum corner of this rectangle.
+     *
+     * @param dest will hold the result
+     * @return dest
+     */
+    default Vector2i getMin(Vector2i dest) {
+        return dest.set(minX(), minY());
+    }
+
     int maxX();
 
     int maxY();
+
+    /**
+     * Return the maximum corner of this rectangle.
+     *
+     * @param dest will hold the result
+     * @return dest
+     */
+    default Vector2i getMax(Vector2i dest) {
+        return dest.set(maxX(), maxY());
+    }
 
     /**
      * Return the length of the rectangle in the X dimension.

@@ -3,6 +3,7 @@
 package org.terasology.joml.geom;
 
 import org.joml.Math;
+import org.joml.Vector2d;
 import org.joml.Vector2dc;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
@@ -14,9 +15,29 @@ public interface Rectanglefc {
 
     float minY();
 
+    /**
+     * Return the minimum corner of this rectangle.
+     *
+     * @param dest will hold the result
+     * @return dest
+     */
+    default Vector2f getMin(Vector2f dest) {
+        return dest.set(minX(), minY());
+    }
+
     float maxX();
 
     float maxY();
+
+    /**
+     * Return the maximum corner of this rectangle.
+     *
+     * @param dest will hold the result
+     * @return dest
+     */
+    default Vector2f getMax(Vector2f dest) {
+        return dest.set(maxX(), maxY());
+    }
 
     /**
      * Return the length of the rectangle in the X dimension.

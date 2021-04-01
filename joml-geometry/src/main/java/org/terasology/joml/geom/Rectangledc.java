@@ -14,9 +14,29 @@ public interface Rectangledc {
 
     double minY();
 
+    /**
+     * Return the minimum corner of this rectangle.
+     *
+     * @param dest will hold the result
+     * @return dest
+     */
+    default Vector2d getMin(Vector2d dest) {
+        return dest.set(minX(), minY());
+    }
+
     double maxX();
 
     double maxY();
+
+    /**
+     * Return the maximum corner of this rectangle.
+     *
+     * @param dest will hold the result
+     * @return dest
+     */
+    default Vector2d getMax(Vector2d dest) {
+        return dest.set(maxX(), maxY());
+    }
 
     /**
      * Return the length of the rectangle in the X dimension.
